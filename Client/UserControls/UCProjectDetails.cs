@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client.Forms
+namespace Client.UserControls
 {
-    public partial class FrmMemberDetails : Form
+    public partial class UCProjectDetails : UserControl
     {
-        public FrmMemberDetails()
+        public UCProjectDetails()
         {
             InitializeComponent();
+        }
+
+        private void UCProjectDetails_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

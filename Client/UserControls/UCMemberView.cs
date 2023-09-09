@@ -16,5 +16,10 @@ namespace Client.UserControls
         {
             InitializeComponent();
         }
+
+        private void UCMemberView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

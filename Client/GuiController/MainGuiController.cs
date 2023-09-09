@@ -15,7 +15,6 @@ namespace Client.GuiController
         private LoginGuiController loginGuiController;
         private MemberGuiController memberGuiController;
         private ProjectGuiController projectGuiController;
-        private TopicGuiController topicGuiController;
 
         public User logedUser { get; set; }
 
@@ -34,7 +33,6 @@ namespace Client.GuiController
             loginGuiController = new LoginGuiController();
             memberGuiController = new MemberGuiController();
             projectGuiController = new ProjectGuiController();
-            topicGuiController = new TopicGuiController();
         }
 
         internal void ShowFrmLogin(FrmLogin frmLogin)
@@ -68,12 +66,19 @@ namespace Client.GuiController
 
         internal void ShowProjectPanel()
         {
-            frmMain.ChangePanel(projectGuiController.CreateUCProject());
+            frmMain.ChangePanel(projectGuiController.CreateUCProjectView());
         }
 
-        internal void ShowTopicPanel()
+        internal void Logout()
         {
-            frmMain.ChangePanel(topicGuiController.CreateUCTopic());
+            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Log out", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK) 
+            {
+                logedUser = null;
+                frmMain.Close();
+                frmLogin.Visible = true;
+            }
+
         }
     }
 }

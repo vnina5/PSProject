@@ -31,7 +31,7 @@ namespace Client.GuiController
             string password = frmLogin.TxtPassword.Text;
 
             User user = Communication.Instance.LoginUser(username, password);
-            if (user != null)
+            if (user != null && user.Username != null)
             {
                 MessageBox.Show("Success!");
                 MainGuiController.Instance.logedUser = user;

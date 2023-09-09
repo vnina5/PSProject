@@ -22,7 +22,7 @@ namespace Client
             //pnlMain.Controls.Add(new UCMembersView());
             membersToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowMemberPanel();
             projectsToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowProjectPanel();
-            topicsToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowTopicPanel();
+            logOutToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.Logout();
 
         }
 
@@ -30,10 +30,8 @@ namespace Client
         {
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(UControl);
-            //UControl.Dock = DockStyle.Fill;
+            UControl.Dock = DockStyle.Fill;
             pnlMain.AutoSize = true;
-
-
 
         }
 

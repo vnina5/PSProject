@@ -35,48 +35,60 @@ namespace Client
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.membersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.topicsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
             // 
-            this.pnlMain.Location = new System.Drawing.Point(0, 27);
+            this.pnlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlMain.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlMain.Location = new System.Drawing.Point(0, 43);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 396);
+            this.pnlMain.Size = new System.Drawing.Size(800, 380);
             this.pnlMain.TabIndex = 0;
             // 
             // msMain
             // 
+            this.msMain.AutoSize = false;
             this.msMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.membersToolStripMenuItem,
             this.projectsToolStripMenuItem,
-            this.topicsToolStripMenuItem});
+            this.logOutToolStripMenuItem});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(800, 28);
+            this.msMain.Size = new System.Drawing.Size(800, 40);
             this.msMain.TabIndex = 1;
             this.msMain.Text = "menuStrip1";
             // 
             // membersToolStripMenuItem
             // 
+            this.membersToolStripMenuItem.AutoSize = false;
+            this.membersToolStripMenuItem.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.membersToolStripMenuItem.Name = "membersToolStripMenuItem";
-            this.membersToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
+            this.membersToolStripMenuItem.Size = new System.Drawing.Size(100, 30);
             this.membersToolStripMenuItem.Text = "Members";
             // 
             // projectsToolStripMenuItem
             // 
+            this.projectsToolStripMenuItem.AutoSize = false;
+            this.projectsToolStripMenuItem.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.projectsToolStripMenuItem.Name = "projectsToolStripMenuItem";
-            this.projectsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.projectsToolStripMenuItem.Size = new System.Drawing.Size(100, 30);
             this.projectsToolStripMenuItem.Text = "Projects";
             // 
-            // topicsToolStripMenuItem
+            // logOutToolStripMenuItem
             // 
-            this.topicsToolStripMenuItem.Name = "topicsToolStripMenuItem";
-            this.topicsToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
-            this.topicsToolStripMenuItem.Text = "Topics";
+            this.logOutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.logOutToolStripMenuItem.AutoSize = false;
+            this.logOutToolStripMenuItem.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(100, 30);
+            this.logOutToolStripMenuItem.Text = "Log out";
             // 
             // FrmMain
             // 
@@ -92,7 +104,6 @@ namespace Client
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -103,14 +114,13 @@ namespace Client
         private ToolStripMenuItem membersToolStripMenuItem;
         private ToolStripMenuItem projectsToolStripMenuItem;
         private BackgroundWorker backgroundWorker1;
-        private ToolStripMenuItem topicsToolStripMenuItem;
+        private ToolStripMenuItem logOutToolStripMenuItem;
 
         public Panel PnlMain { get => pnlMain; set => pnlMain = value; }
         public MenuStrip MsMain { get => msMain; set => msMain = value; }
         public ToolStripMenuItem MembersToolStripMenuItem { get => membersToolStripMenuItem; set => membersToolStripMenuItem = value; }
         public ToolStripMenuItem ProjectsToolStripMenuItem { get => projectsToolStripMenuItem; set => projectsToolStripMenuItem = value; }
         public BackgroundWorker BackgroundWorker1 { get => backgroundWorker1; set => backgroundWorker1 = value; }
-        public ToolStripMenuItem TopicsToolStripMenuItem { get => topicsToolStripMenuItem; set => topicsToolStripMenuItem = value; }
     }
 }
 

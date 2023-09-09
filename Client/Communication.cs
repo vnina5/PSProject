@@ -59,7 +59,7 @@ namespace Client
 
         }
 
-        internal BindingList<Member> GetAllMembers()
+        internal List<Member> GetAllMembers()
         {
             Request request = new Request();
             request.Operation = Operation.GetAllMembers;
@@ -70,7 +70,7 @@ namespace Client
             {
                 throw response.Exception;
             }
-            return (BindingList<Member>)response.Result;
+            return (List<Member>)response.Result;
         }
 
         internal void AddMember(Member member)
@@ -114,5 +114,66 @@ namespace Client
             }
             return (List<Sector>)response.Result;
         }
+
+        internal List<Project> GetAllProjects()
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetAllProjects;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return (List<Project>)response.Result;
+        }
+
+        internal void AddProject(Project project)
+        {
+            Request request = new Request();
+            request.Operation = Operation.AddProject;
+            request.Object = project;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal void UpdateProject(Project project)
+        {
+            Request request = new Request();
+            request.Operation = Operation.UpdateProject;
+            request.Object = project;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal BindingList<Activity> GetActivitiesOfProject(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        //internal Sector GetSector(int sectorId)
+        //{
+        //    Request request = new Request();
+        //    request.Operation = Operation.GetAllSectors;
+        //    sender.Send(request);
+
+        //    Response response = receiver.Receive<Response>();
+        //    if (response.Exception != null)
+        //    {
+        //        throw response.Exception;
+        //    }
+        //    return (Sector)response.Result;
+        //}
     }
 }

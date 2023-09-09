@@ -16,41 +16,17 @@ namespace Client.GuiController
     {
         private UCMemberView ucMember;
         private FrmMemberDetails frmMember;
+        private List<Member> members = new List<Member>();
+
+        private Member selectedMember;
+
         public MemberGuiController() { }
 
         public Control CreateUCMember()
         {
             ucMember = new UCMemberView();
 
-            try
-            {
-                BindingList<Member> members = Communication.Instance.GetAllMembers();
-                ucMember.DgvMembers.DataSource = members;
-                ucMember.DgvMembers.Columns["TableName"].Visible = false;
-                ucMember.DgvMembers.Columns["Values"].Visible = false;
-                ucMember.DgvMembers.Columns["Criteria"].Visible = false;
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            //Member m = new Member
-            //{
-            //    FirstName = "Pera",
-            //    LastName = "Peric",
-            //    DateOfBirth = DateTime.Now,
-            //    YearOfStudy = Year.II,
-            //    Sector = new Sector
-            //    {
-            //        Name = "Dizajn"
-            //    }
-            //};
+            InitDgvMembers();
 
             ucMember.BtnAdd.Click += (s, a) => CreateFormMembar(FormMode.Add);
             ucMember.BtnDetails.Click += (s, a) => CreateFormMembar(FormMode.Details);
@@ -59,14 +35,45 @@ namespace Client.GuiController
             return ucMember;
         }
 
+        private void InitDgvMembers()
+        {
+            try
+            {
+                members = Communication.Instance.GetAllMembers();
+                ucMember.DgvMembers.DataSource = members;
+
+                ucMember.DgvMembers.Columns["TableName"].Visible = false;
+                ucMember.DgvMembers.Columns["InsertColumn"].Visible = false;
+                ucMember.DgvMembers.Columns["InsertValues"].Visible = false;
+                ucMember.DgvMembers.Columns["UpdateValues"].Visible = false;
+                ucMember.DgvMembers.Columns["PrimaryKey"].Visible = false;
+                ucMember.DgvMembers.Columns["ForeignKey"].Visible = false;
+                ucMember.DgvMembers.Columns["ForeignKey2"].Visible = false;
+                ucMember.DgvMembers.Columns["Criteria"].Visible = false;
+
+                ucMember.AutoSize = true;
+                ucMember.DgvMembers.AutoSize = true;
+
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void CreateFormMembar(FormMode formMode)
         {
             frmMember = new FrmMemberDetails();
 
             try
             {
-                frmMember.CmbSector.DataSource = Communication.Instance.GetAllSectors();
                 frmMember.CmbYearOfStudy.DataSource = Enum.GetValues(typeof(Year));
+                frmMember.CmbSector.DataSource = Communication.Instance.GetAllSectors();
             }
             catch (SocketException ex)
             {
@@ -78,7 +85,33 @@ namespace Client.GuiController
                 MessageBox.Show(ex.Message);
             }
 
-            Member m = (Member)ucMember.DgvMembers.CurrentRow.DataBoundItem;
+            if (members.Count == 0)
+            {
+                selectedMember = null;
+            }
+            else
+            {
+                selectedMember = (Member)ucMember.DgvMembers.CurrentRow.DataBoundItem;
+            }
+
+            if (formMode != FormMode.Add)
+            { 
+                if (selectedMember != null)
+                {
+                    frmMember.TxtFirstname.Text = selectedMember.FirstName;
+                    frmMember.TxtLastname.Text = selectedMember.LastName;
+                    frmMember.TxtEmail.Text = selectedMember.Email;
+                    //frmMember.DtpDateOfBirth.Value = selectedMember.DateOfBirth;
+                    frmMember.CmbYearOfStudy.Text = selectedMember.YearOfStudy.ToString();
+                    frmMember.CmbSector.Text = selectedMember.Sector.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Nothing is selected!");
+                    return;
+                }
+
+            }
 
             switch (formMode)
             {
@@ -88,21 +121,11 @@ namespace Client.GuiController
                     break;
 
                 case FormMode.Details:
-                    frmMember.TxtFirstname.Text = m.FirstName;
-                    frmMember.TxtLastname.Text = m.LastName;
-                    frmMember.DtpDateOfBirth.Value = m.DateOfBirth;
-                    frmMember.CmbYearOfStudy.Text = m.YearOfStudy.ToString();
-                    frmMember.CmbSector.Text = m.Sector.ToString();
                     frmMember.BtnSave.Text = "Ok";
                     frmMember.BtnSave.Click += OkMember;
                     break;
 
                 case FormMode.Update:
-                    frmMember.TxtFirstname.Text = m.FirstName;
-                    frmMember.TxtLastname.Text = m.LastName;
-                    frmMember.DtpDateOfBirth.Value = m.DateOfBirth;
-                    frmMember.CmbYearOfStudy.Text = m.YearOfStudy.ToString();
-                    frmMember.CmbSector.Text = m.Sector.ToString();
                     frmMember.BtnSave.Text = "Update";
                     frmMember.BtnSave.Click += UpdateMember;
                     break;
@@ -112,54 +135,8 @@ namespace Client.GuiController
             }
 
             frmMember.ShowDialog();
-        }
+            InitDgvMembers();
 
-        private void InitAddFormMember()
-        {
-            try
-            {
-                frmMember.CmbSector.DataSource = Communication.Instance.GetAllSectors();
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            frmMember.CmbYearOfStudy.DataSource = Enum.GetValues(typeof(Year));
-
-            frmMember.BtnSave.Text = "Add";
-            frmMember.BtnSave.Click += AddMember;
-        }
-
-        private void InitDetailsFormMember(Member m)
-        {
-            frmMember.TxtFirstname.Text = m.FirstName;
-            frmMember.TxtLastname.Text = m.LastName;
-            frmMember.DtpDateOfBirth.Value = m.DateOfBirth;
-            frmMember.CmbYearOfStudy.Text = m.YearOfStudy.ToString();
-            frmMember.CmbSector.Text = m.Sector.ToString();
-
-            frmMember.BtnSave.Text = "Ok";
-            frmMember.BtnSave.Click += OkMember;
-        }
-
-        private void InitUpdateFormMember(Member m)
-        {
-            frmMember.CmbYearOfStudy.DataSource = Enum.GetValues(typeof(Year));
-
-            frmMember.TxtFirstname.Text = m.FirstName;
-            frmMember.TxtLastname.Text = m.LastName;
-            frmMember.DtpDateOfBirth.Value = m.DateOfBirth;
-            frmMember.CmbYearOfStudy.Text = m.YearOfStudy.ToString();
-            frmMember.CmbSector.Text = m.Sector.ToString();
-
-            frmMember.BtnSave.Text = "Update";
-            frmMember.BtnSave.Click += UpdateMember;
         }
 
         private void AddMember(object sender, EventArgs e)
@@ -168,7 +145,8 @@ namespace Client.GuiController
             {
                 FirstName = frmMember.TxtFirstname.Text,
                 LastName = frmMember.TxtLastname.Text,
-                DateOfBirth = frmMember.DtpDateOfBirth.Value,
+                Email = frmMember.TxtEmail.Text,
+                //DateOfBirth = frmMember.DtpDateOfBirth.Value,
                 YearOfStudy = (Year)frmMember.CmbYearOfStudy.SelectedItem,
                 Sector = (Sector)frmMember.CmbSector.SelectedItem,
             };
@@ -178,6 +156,7 @@ namespace Client.GuiController
                 Communication.Instance.AddMember(member);
                 MessageBox.Show("Success!");
                 frmMember.Close();
+                members.Add(member);
             }
             catch (SocketException ex)
             {
@@ -192,19 +171,18 @@ namespace Client.GuiController
 
         private void UpdateMember(object sender, EventArgs e)
         {
-            Member member = new Member
-            {
-                FirstName = frmMember.TxtFirstname.Text,
-                LastName = frmMember.TxtLastname.Text,
-                DateOfBirth = frmMember.DtpDateOfBirth.Value,
-                YearOfStudy = (Year)frmMember.CmbYearOfStudy.SelectedItem,
-                Sector = (Sector)frmMember.CmbSector.SelectedItem,
-            };
+            selectedMember.FirstName = frmMember.TxtFirstname.Text;
+            selectedMember.LastName = frmMember.TxtLastname.Text;
+            selectedMember.Email = frmMember.TxtEmail.Text;
+            //selectedMember.DateOfBirth = frmMember.DtpDateOfBirth.Value;
+            selectedMember.YearOfStudy = (Year)frmMember.CmbYearOfStudy.SelectedItem;
+            selectedMember.Sector = (Sector)frmMember.CmbSector.SelectedItem;
 
             try
             {
-                Communication.Instance.UpdateMember(member);
-
+                Communication.Instance.UpdateMember(selectedMember);
+                MessageBox.Show("Success!");
+                frmMember.Close();
             }
             catch (SocketException ex)
             {

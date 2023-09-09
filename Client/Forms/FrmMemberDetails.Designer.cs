@@ -31,17 +31,17 @@ namespace Client.Forms
         private void InitializeComponent()
         {
             this.btnSave = new System.Windows.Forms.Button();
-            this.dtpDateOfBirth = new System.Windows.Forms.DateTimePicker();
             this.cmbSector = new System.Windows.Forms.ComboBox();
             this.cmbYearOfStudy = new System.Windows.Forms.ComboBox();
             this.txtLastname = new System.Windows.Forms.TextBox();
             this.txtFirstname = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
@@ -52,13 +52,6 @@ namespace Client.Forms
             this.btnSave.TabIndex = 26;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // dtpDateOfBirth
-            // 
-            this.dtpDateOfBirth.Location = new System.Drawing.Point(270, 196);
-            this.dtpDateOfBirth.Name = "dtpDateOfBirth";
-            this.dtpDateOfBirth.Size = new System.Drawing.Size(245, 22);
-            this.dtpDateOfBirth.TabIndex = 25;
             // 
             // cmbSector
             // 
@@ -108,15 +101,6 @@ namespace Client.Forms
             this.label5.TabIndex = 18;
             this.label5.Text = "Year of study";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(136, 202);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 16);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Date of birth";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -144,25 +128,42 @@ namespace Client.Forms
             this.label1.TabIndex = 14;
             this.label1.Text = "Member";
             // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(270, 194);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(245, 22);
+            this.txtEmail.TabIndex = 28;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(136, 200);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 16);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Email";
+            // 
             // FrmMemberDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(655, 486);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.dtpDateOfBirth);
             this.Controls.Add(this.cmbSector);
             this.Controls.Add(this.cmbYearOfStudy);
             this.Controls.Add(this.txtLastname);
             this.Controls.Add(this.txtFirstname);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FrmMemberDetails";
             this.Text = "FrmMemberDetails";
+            this.Load += new System.EventHandler(this.FrmMemberDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,24 +171,25 @@ namespace Client.Forms
 
         #endregion
 
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.DateTimePicker dtpDateOfBirth;
-        private System.Windows.Forms.ComboBox cmbSector;
-        private System.Windows.Forms.ComboBox cmbYearOfStudy;
-        private System.Windows.Forms.TextBox txtLastname;
-        private System.Windows.Forms.TextBox txtFirstname;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private Button btnSave;
+        private ComboBox cmbSector;
+        private ComboBox cmbYearOfStudy;
+        private TextBox txtLastname;
+        private TextBox txtFirstname;
+        private Label label6;
+        private Label label5;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private TextBox txtEmail;
+        private Label label4;
 
         public Button BtnSave { get => btnSave; set => btnSave = value; }
-        public DateTimePicker DtpDateOfBirth { get => dtpDateOfBirth; set => dtpDateOfBirth = value; }
+        //public DateTimePicker DtpDateOfBirth { get => dtpDateOfBirth; set => dtpDateOfBirth = value; }
         public ComboBox CmbSector { get => cmbSector; set => cmbSector = value; }
         public ComboBox CmbYearOfStudy { get => cmbYearOfStudy; set => cmbYearOfStudy = value; }
         public TextBox TxtLastname { get => txtLastname; set => txtLastname = value; }
         public TextBox TxtFirstname { get => txtFirstname; set => txtFirstname = value; }
+        public TextBox TxtEmail { get => txtEmail; set => txtEmail = value; }
     }
 }

@@ -31,37 +31,30 @@ namespace Client.UserControls
         private void InitializeComponent()
         {
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDetails = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dgvProjects = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlProject = new System.Windows.Forms.Panel();
+            this.btnDetails = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjects)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(286, 68);
+            this.btnUpdate.Location = new System.Drawing.Point(158, 68);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(112, 33);
+            this.btnUpdate.Size = new System.Drawing.Size(110, 30);
             this.btnUpdate.TabIndex = 17;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             // 
-            // btnDetails
-            // 
-            this.btnDetails.Location = new System.Drawing.Point(158, 68);
-            this.btnDetails.Name = "btnDetails";
-            this.btnDetails.Size = new System.Drawing.Size(112, 33);
-            this.btnDetails.TabIndex = 16;
-            this.btnDetails.Text = "Details";
-            this.btnDetails.UseVisualStyleBackColor = true;
-            // 
             // txtSearch
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(703, 79);
+            this.txtSearch.Location = new System.Drawing.Point(703, 73);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(223, 22);
             this.txtSearch.TabIndex = 15;
@@ -71,7 +64,7 @@ namespace Client.UserControls
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Location = new System.Drawing.Point(932, 68);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(112, 33);
+            this.btnSearch.Size = new System.Drawing.Size(110, 30);
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -80,7 +73,7 @@ namespace Client.UserControls
             // 
             this.btnAdd.Location = new System.Drawing.Point(30, 68);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(112, 33);
+            this.btnAdd.Size = new System.Drawing.Size(110, 30);
             this.btnAdd.TabIndex = 13;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -88,11 +81,11 @@ namespace Client.UserControls
             // dgvProjects
             // 
             this.dgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProjects.Location = new System.Drawing.Point(30, 126);
+            this.dgvProjects.Location = new System.Drawing.Point(30, 120);
             this.dgvProjects.Name = "dgvProjects";
             this.dgvProjects.RowHeadersWidth = 51;
             this.dgvProjects.RowTemplate.Height = 24;
-            this.dgvProjects.Size = new System.Drawing.Size(1014, 214);
+            this.dgvProjects.Size = new System.Drawing.Size(1014, 197);
             this.dgvProjects.TabIndex = 12;
             // 
             // label1
@@ -104,10 +97,37 @@ namespace Client.UserControls
             this.label1.TabIndex = 18;
             this.label1.Text = "Projects";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(650, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Name:";
+            // 
+            // panel1
+            // 
+            this.pnlProject.Location = new System.Drawing.Point(33, 345);
+            this.pnlProject.Name = "panel1";
+            this.pnlProject.Size = new System.Drawing.Size(1009, 210);
+            this.pnlProject.TabIndex = 23;
+            // 
+            // btnDetails
+            // 
+            this.btnDetails.Location = new System.Drawing.Point(285, 68);
+            this.btnDetails.Name = "btnDetails";
+            this.btnDetails.Size = new System.Drawing.Size(110, 30);
+            this.btnDetails.TabIndex = 16;
+            this.btnDetails.Text = "Details";
+            this.btnDetails.UseVisualStyleBackColor = true;
+            // 
             // UCProjectView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnlProject);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDetails);
@@ -116,7 +136,8 @@ namespace Client.UserControls
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dgvProjects);
             this.Name = "UCProjectView";
-            this.Size = new System.Drawing.Size(1074, 408);
+            this.Size = new System.Drawing.Size(1074, 591);
+            this.Load += new System.EventHandler(this.UCProjectView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjects)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -125,19 +146,22 @@ namespace Client.UserControls
 
         #endregion
 
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDetails;
+        private Label label4;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnUpdate;
+        private Button btnDetails;
         private System.Windows.Forms.DataGridView dgvProjects;
-        private System.Windows.Forms.Label label1;
+        private Panel pnlProject;
 
-        public Button BtnUpdate { get => btnUpdate; set => btnUpdate = value; }
-        public Button BtnDetails { get => btnDetails; set => btnDetails = value; }
         public TextBox TxtSearch { get => txtSearch; set => txtSearch = value; }
         public Button BtnSearch { get => btnSearch; set => btnSearch = value; }
         public Button BtnAdd { get => btnAdd; set => btnAdd = value; }
+        public Button BtnUpdate { get => btnUpdate; set => btnUpdate = value; }
+        public Button BtnDetails { get => btnDetails; set => btnDetails = value; }
         public DataGridView DgvProjects { get => dgvProjects; set => dgvProjects = value; }
+        public Panel PnlProject { get => pnlProject; set => pnlProject = value; }
     }
 }

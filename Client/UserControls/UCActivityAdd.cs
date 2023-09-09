@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Client.UserControls
 {
-    public partial class UCTopicView : UserControl
+    public partial class UCActivityAdd : UserControl
     {
-        public UCTopicView()
+        public UCActivityAdd()
         {
             InitializeComponent();
+        }
+
+        private void UCActivityAdd_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
