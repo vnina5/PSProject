@@ -8,20 +8,14 @@ using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class GetSectorSysOp : SystemOperationBase
+    public class GetAllProjectsSysOp : SystemOperationBase
     {
-        private readonly Sector s;
-        public Sector Result { get; set; }
-
-        public GetSectorSysOp(Sector s)
-        {
-            this.s = s;
-        }
+        public List<Project> Result { get; set; }
+        //public List<Activity> Act { get; set; }
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = (Sector)broker.Get(s);
-
+            Result = broker.GetAll(new Project()).OfType<Project>().ToList();
         }
     }
 }

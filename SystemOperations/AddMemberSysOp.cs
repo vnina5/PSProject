@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SysOp
 {
-    public class AddMemberSysOp : SysOpBase
+    public class AddMemberSysOp : SystemOperationBase
     {
-        private Member m;
+        private readonly Member m;
 
         public AddMemberSysOp(Member m) 
         {

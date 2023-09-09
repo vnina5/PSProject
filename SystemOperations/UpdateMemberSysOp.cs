@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace SysOp
 {
-    public class UpdateMemberSysOp : SysOpBase
+    public class UpdateMemberSysOp : SystemOperationBase
     {
-        private readonly Member member;
-        public UpdateMemberSysOp(Member member) 
+        private readonly Member m;
+        public UpdateMemberSysOp(Member m) 
         {
-            this.member = member;
+            this.m = m;
         }
 
         protected override void ExecuteConcreteOperation()
         {
-            broker.Update(member);
+            broker.Update(m);
         }
     }
 }

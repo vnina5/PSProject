@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SysOp
 {
-    public class LoginSysOp : SysOpBase
+    public class LoginSysOp : SystemOperationBase
     {
         private User user;
 

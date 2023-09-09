@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddMemberSysOp.cs" />
+    <Compile Include="AddProjectSysOp.cs" />
     <Compile Include="GetAllMembersSysOp.cs" />
+    <Compile Include="GetAllProjectsSysOp.cs" />
     <Compile Include="GetAllSectorsSysOp.cs" />
     <Compile Include="GetMemberSysOp.cs" />
     <Compile Include="GetSectorSysOp.cs" />
     <Compile Include="LoginSysOp.cs" />
-    <Compile Include="SysOpBase.cs" />
+    <Compile Include="SystemOperationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateMemberSysOp.cs" />
   </ItemGroup>

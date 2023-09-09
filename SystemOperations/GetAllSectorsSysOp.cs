@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Server
 {
-    public class GetAllSectorsSysOp : SysOpBase
+    public class GetAllSectorsSysOp : SystemOperationBase
     {
         public List<Sector> Result { get; set; }
 

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SysOp
 {
-    public abstract class SysOpBase
+    public abstract class SystemOperationBase
     {
         protected IBroker<IEntity> broker;
         //public object Result { get; set; }
 
-        public SysOpBase() 
+        public SystemOperationBase() 
         {
             broker = new GenericBroker();
         }

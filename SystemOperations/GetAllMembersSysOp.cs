@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace SysOp
 {
-    public class GetAllMembersSysOp : SysOpBase
+    public class GetAllMembersSysOp : SystemOperationBase
     {
         public List<Member> Result { get; set; }
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = broker.GetAll(new Member()).OfType<Member>().ToList();
+            //Result = broker.GetAll(new Member()).OfType<Member>().ToList();
+            Result = broker.GetAllJoin(new Member(), new Sector()).OfType<Member>().ToList();
         }
     }
 }
