@@ -16,5 +16,8 @@ namespace Common
         GetAllSectors,
         GetSector,
         GetMember,
+        GetAllProjects,
+        AddProject,
+        UpdateProject,
     }
 }

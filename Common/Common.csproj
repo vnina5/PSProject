@@ -51,9 +51,7 @@
     <Compile Include="Member.cs" />
     <Compile Include="MemberActivity.cs" />
     <Compile Include="Project.cs" />
-    <Compile Include="ProjectItem.cs" />
     <Compile Include="Sector.cs" />
-    <Compile Include="Topic.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

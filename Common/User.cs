@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    public enum Role
+    {
+        Admin = 1,
+        Member = 2,
+    }
+
     [Serializable]
     public class User : IEntity
     {
@@ -14,12 +21,24 @@ namespace Common
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public Role Role { get; set; }
 
         public string TableName => "[user]";
 
-        public string Values => $"'{Name}', '{Username}','{Password}'";
+        public object InsertColumn => throw new NotImplementedException();
+
+        public string InsertValues => throw new NotImplementedException();
+
+        public object PrimaryKey => "id";
+
+        public string UpdateValues => throw new NotImplementedException();
+
+        public object ForeignKey => throw new NotImplementedException();
 
         public string Criteria => $"username = '{Username}' and password = '{Password}'";
+
+        public object ForeignKey2 => throw new NotImplementedException();
+
 
         public List<IEntity> GetEntities(SqlDataReader reader)
         {

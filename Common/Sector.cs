@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,20 @@ namespace Common
 
         public string TableName => "sector";
 
-        public string Values => $"'{Name}'";
+        public object InsertColumn => "name";
+
+        public string InsertValues => $"'{Name}'";
+
+        public string UpdateValues => $"name = {Name}";
+
+        public object PrimaryKey => "id";
+
+        public object ForeignKey => throw new NotImplementedException();
 
         public string Criteria => $"id = {Id}";
+
+        public object ForeignKey2 => throw new NotImplementedException();
+
 
         public List<IEntity> GetEntities(SqlDataReader reader)
         {
@@ -46,7 +58,7 @@ namespace Common
 
         public override string ToString()
         {
-            return Id + " " + Name;
+            return Name;
         }
     }
 }
