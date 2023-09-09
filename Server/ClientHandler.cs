@@ -77,6 +77,18 @@ namespace Server
                         response.Result = Controller.Instance.GetSectors((Sector)request.Object);
                         break;
 
+                    case Operation.GetAllProjects:
+                        response.Result = Controller.Instance.GetAllProjects();
+                        break;
+
+                    case Operation.AddProject:
+                        Controller.Instance.AddProject((Project)request.Object);
+                        break;
+
+                    case Operation.UpdateProject:
+                        Controller.Instance.UpdateProject((Project)request.Object);
+                        break;
+
                     default:
                         response.Exception = new Exception("Operation is not implemented!");
                         break;

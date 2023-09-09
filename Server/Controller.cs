@@ -25,51 +25,68 @@ namespace Server
 
         internal User LoginUser(User user)
         {
-            SysOpBase so = new LoginSysOp(user);
+            SystemOperationBase so = new LoginSysOp(user);
             so.Execute();
             return ((LoginSysOp)so).Result;
         }
 
         internal object GetAllMembers()
         {
-            SysOpBase so = new GetAllMembersSysOp();
+            SystemOperationBase so = new GetAllMembersSysOp();
             so.Execute();
             return ((GetAllMembersSysOp)so).Result;
         }
         internal object GetMember(Member member)
         {
-            SysOpBase so = new GetMemberSysOp(member);
+            SystemOperationBase so = new GetMemberSysOp(member);
             so.Execute();
             return ((GetMemberSysOp)so).Result;
         }
 
         internal void AddMember(Member member)
         {
-            SysOpBase so = new AddMemberSysOp(member);
+            SystemOperationBase so = new AddMemberSysOp(member);
             so.Execute();
             //return so.Result;
         }
 
         internal void UpdateMember(Member member)
         {
-            SysOpBase so = new UpdateMemberSysOp(member);
+            SystemOperationBase so = new UpdateMemberSysOp(member);
             so.Execute();
             //return so.Result;
-
         }
 
         internal object GetAllSectors()
         {
-            SysOpBase so = new GetAllSectorsSysOp();
+            SystemOperationBase so = new GetAllSectorsSysOp();
             so.Execute();
             return ((GetAllSectorsSysOp)so).Result;
         }
 
         internal object GetSectors(Sector sector)
         {
-            SysOpBase so = new GetSectorSysOp(sector);
+            SystemOperationBase so = new GetSectorSysOp(sector);
             so.Execute();
             return ((GetSectorSysOp)so).Result;
+        }
+
+        internal object GetAllProjects()
+        {
+            SystemOperationBase so = new GetAllProjectsSysOp();
+            so.Execute();
+            return ((GetAllProjectsSysOp)so).Result;
+        }
+
+        internal void AddProject(Project project)
+        {
+            SystemOperationBase so = new AddProjectSysOp(project);
+            so.Execute();
+        }
+
+        internal void UpdateProject(Project project)
+        {
+            throw new NotImplementedException();
         }
     }
 }
