@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace Broker
         void Delete(TEntity entity);
         TEntity Get(TEntity entity);
         List<TEntity> GetAll(TEntity entity);
+        List<TEntity> GetAllJoin(IEntity entity, IEntity joinEntity);
         List<TEntity> Search(string criteria);
     }
 }

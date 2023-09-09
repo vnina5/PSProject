@@ -2,6 +2,7 @@
 using Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -30,14 +31,14 @@ namespace Broker
         public void Add(IEntity entity)
         {
             SqlCommand cmd = DbBroker.Instance.GetConnection().GetCommand();
-            cmd.CommandText = $"insert into {entity.TableName} {entity.Values}";
+            cmd.CommandText = $"insert into {entity.TableName} ({entity.InsertColumn}) values ({entity.InsertValues})";
             cmd.ExecuteNonQuery();
         }
 
         public void Update(IEntity entity)
         {
             SqlCommand cmd = DbBroker.Instance.GetConnection().GetCommand();
-            cmd.CommandText = $"update {entity.TableName} set {entity.Values} where {entity.Criteria}";
+            cmd.CommandText = $"update {entity.TableName} set {entity.UpdateValues} where {entity.Criteria}";
             cmd.ExecuteNonQuery();
         }
 
@@ -75,7 +76,15 @@ namespace Broker
             throw new NotImplementedException();
         }
 
-
-
+        public List<IEntity> GetAllJoin(IEntity entity, IEntity joinEntity)
+        {
+            List<IEntity> result;
+            SqlCommand cmd = DbBroker.Instance.GetConnection().GetCommand();
+            cmd.CommandText = $"select * from {entity.TableName} a join {joinEntity.TableName} b on (a.{entity.ForeignKey} = b.{joinEntity.PrimaryKey}) ";
+            SqlDataReader reader = cmd.ExecuteReader();
+            result = entity.GetEntities(reader);
+            reader.Close();
+            return result;
+        }
     }
 }

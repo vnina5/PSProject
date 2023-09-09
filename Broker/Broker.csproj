@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericBroker.cs" />
+    <Compile Include="Brocker\GenericBroker.cs" />
     <Compile Include="Connection\DbBroker.cs" />
     <Compile Include="Connection\DbConnection.cs" />
-    <Compile Include="IBroker.cs" />
+    <Compile Include="Brocker\IBroker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
