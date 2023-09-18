@@ -20,5 +20,16 @@ namespace Server
             server = new Server();
             server.Start();
         }
+
+        private void FrmServer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmServer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+
+        }
     }
 }

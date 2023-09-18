@@ -34,10 +34,12 @@ namespace Common
         public string UpdateValues => throw new NotImplementedException();
 
         public object ForeignKey => throw new NotImplementedException();
+        
+        public object ForeignKey2 => throw new NotImplementedException();
 
         public string Criteria => $"username = '{Username}' and password = '{Password}'";
 
-        public object ForeignKey2 => throw new NotImplementedException();
+        public string Search => "name";
 
 
         public List<IEntity> GetEntities(SqlDataReader reader)
@@ -67,6 +69,16 @@ namespace Common
                 result.Password = (string)reader["Password"];
             }
             return result;
+        }
+
+        public List<IEntity> GetJoinEntities(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntity GetJoinEntity(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToString()

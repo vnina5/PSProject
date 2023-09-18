@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Broker.Connection
 {
@@ -16,8 +17,8 @@ namespace Broker.Connection
         {
             if (!IsReady())
             {
-                //connection = new SqlConnection(ConfigurationManager.ConnectionStrings["psdb"].ConnectionString);
-                connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PSProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["PSProject"].ConnectionString);
+                //connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PSProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
                 connection.Open();
             }

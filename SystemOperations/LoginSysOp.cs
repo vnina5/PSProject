@@ -10,9 +10,7 @@ namespace SysOp
     public class LoginSysOp : SystemOperationBase
     {
         private User user;
-
-        public User Result { get; set; }
-
+        public List<User> Result { get; set; }
         public LoginSysOp(User user) 
         { 
             this.user = user;
@@ -20,7 +18,7 @@ namespace SysOp
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = (User)broker.Get(user);
+            Result = broker.GetCriteria(user).OfType<User>().ToList();
             //Result = new User
             //{
             //    Id = 1,

@@ -2,7 +2,7 @@
 
 namespace Client.Forms
 {
-    partial class FrmMemberDetails
+    partial class FrmMemberAdd
     {
         /// <summary>
         /// Required designer variable.
@@ -171,18 +171,18 @@ namespace Client.Forms
 
         #endregion
 
-        private Button btnSave;
-        private ComboBox cmbSector;
-        private ComboBox cmbYearOfStudy;
-        private TextBox txtLastname;
-        private TextBox txtFirstname;
         private Label label6;
         private Label label5;
         private Label label3;
         private Label label2;
         private Label label1;
-        private TextBox txtEmail;
         private Label label4;
+        private Button btnSave;
+        private ComboBox cmbSector;
+        private ComboBox cmbYearOfStudy;
+        private TextBox txtLastname;
+        private TextBox txtFirstname;
+        private TextBox txtEmail;
 
         public Button BtnSave { get => btnSave; set => btnSave = value; }
         //public DateTimePicker DtpDateOfBirth { get => dtpDateOfBirth; set => dtpDateOfBirth = value; }

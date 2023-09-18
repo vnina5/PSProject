@@ -54,6 +54,12 @@
     <Compile Include="Forms\FrmMemberDetails.Designer.cs">
       <DependentUpon>FrmMemberAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmMembersAll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMembersAll.Designer.cs">
+      <DependentUpon>FrmMembersAll.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmProjectAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,20 +81,23 @@
     <Compile Include="GuiController\MainGuiController.cs" />
     <Compile Include="GuiController\LoginGuiController.cs" />
     <Compile Include="GuiController\MemberGuiController.cs" />
+    <Compile Include="GuiController\OneActivityGuiController.cs" />
+    <Compile Include="GuiController\OneMemberGuiController.cs" />
+    <Compile Include="GuiController\OneProjectGuiController.cs" />
     <Compile Include="GuiController\ProjectGuiController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\UCActivityAdd.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\UCActivityAdd.Designer.cs">
-      <DependentUpon>UCActivityAdd.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UCActivityDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\UCActivityDetails.Designer.cs">
       <DependentUpon>UCActivityDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCMemberDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCMemberDetails.Designer.cs">
+      <DependentUpon>UCMemberDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCMemberView.cs">
       <SubType>UserControl</SubType>
@@ -111,6 +120,9 @@
     <EmbeddedResource Include="Forms\FrmMemberDetails.resx">
       <DependentUpon>FrmMemberAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMembersAll.resx">
+      <DependentUpon>FrmMembersAll.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProjectAdd.resx">
       <DependentUpon>FrmProjectAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,11 +141,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UserControls\UCActivityAdd.resx">
-      <DependentUpon>UCActivityAdd.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCActivityDetails.resx">
       <DependentUpon>UCActivityDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCMemberDetails.resx">
+      <DependentUpon>UCMemberDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCMemberView.resx">
       <DependentUpon>UCMemberView.cs</DependentUpon>

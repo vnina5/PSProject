@@ -19,5 +19,16 @@ namespace Common
         GetAllProjects,
         AddProject,
         UpdateProject,
+        GetActivitiesOfProject,
+        AddActivity,
+        UpdateActivity,
+        AssignMemberActivity,
+        GetMembersSearch,
+        GetProjectsSearch,
+        GetActivitiesSearch,
+        GetFilterActivitiesOfProject,
+        GetMemberActivities,
+        GetActivityMembers,
+        CompletMemberActivity,
     }
 }

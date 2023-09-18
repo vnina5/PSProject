@@ -11,15 +11,19 @@ namespace Common
     public interface IEntity
     {
         string TableName { get; }
+        object InsertColumn { get; }
         string InsertValues { get; }
         string UpdateValues { get; }
         object PrimaryKey { get; }
         object ForeignKey { get; }
         object ForeignKey2 { get; }
         string Criteria { get; }
-        object InsertColumn { get; }
+        string Search { get; }
 
         List<IEntity> GetEntities(SqlDataReader reader);
+        List<IEntity> GetJoinEntities(SqlDataReader reader);    
         IEntity GetEntity(SqlDataReader reader);
+        IEntity GetJoinEntity(SqlDataReader reader);
+        
     }
 }

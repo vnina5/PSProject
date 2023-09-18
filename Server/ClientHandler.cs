@@ -1,5 +1,6 @@
 ﻿using Common;
 using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -58,7 +59,11 @@ namespace Server
                         break;
 
                     case Operation.GetMember:
-                        response.Result = Controller.Instance.GetMember((Member)request.Object);
+                        response.Result = Controller.Instance.GetMember((int)request.Object);
+                        break;
+
+                    case Operation.GetMembersSearch:
+                        response.Result = Controller.Instance.GetMembersSearch((string)request.Object);
                         break;
 
                     case Operation.AddMember:
@@ -74,7 +79,7 @@ namespace Server
                         break;
 
                     case Operation.GetSector:
-                        response.Result = Controller.Instance.GetSectors((Sector)request.Object);
+                        response.Result = Controller.Instance.GetSectors((int)request.Object);
                         break;
 
                     case Operation.GetAllProjects:
@@ -87,6 +92,43 @@ namespace Server
 
                     case Operation.UpdateProject:
                         Controller.Instance.UpdateProject((Project)request.Object);
+                        break;
+
+                    case Operation.GetProjectsSearch:
+                        response.Result = Controller.Instance.GetProjectsSearch((string)request.Object);
+                        break;
+
+                    case Operation.GetActivitiesOfProject:
+                        response.Result = Controller.Instance.GetActivitiesOfProject((int)request.Object);
+                        break;
+
+                    case Operation.AddActivity:
+                        Controller.Instance.AddActivity((Activity)request.Object);
+                        break;
+
+                    case Operation.UpdateActivity:
+                        Controller.Instance.UpdateActivity((Activity)request.Object);
+                        break;
+
+                    case Operation.AssignMemberActivity:
+                        Controller.Instance.AssignMemberActivity((List<MemberActivity>)request.Object);
+                        break;
+
+                    case Operation.CompletMemberActivity:
+                        Controller.Instance.CompletMemberActivity((List<MemberActivity>)request.Object);
+                        break;
+
+                    case Operation.GetFilterActivitiesOfProject:
+                        object[] array = (object[])request.Object;
+                        response.Result = Controller.Instance.GetFilterActivitiesOfProject((StatusActivity)array[0], (int)array[1]);
+                        break;
+
+                    case Operation.GetMemberActivities:
+                        response.Result = Controller.Instance.GetMemberActivities((Member)request.Object);
+                        break;
+
+                    case Operation.GetActivityMembers:
+                        response.Result = Controller.Instance.GetActivityMembers((Activity)request.Object);
                         break;
 
                     default:

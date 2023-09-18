@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,98 +17,42 @@ namespace Client.GuiController
     public class ProjectGuiController
     {
         private UCProjectView ucProjectView;
-        private UCProjectDetails ucProjectDetails;
         private FrmProjectAdd frmProjectAdd;
 
-        private UCActivityDetails ucActivityDetails;
-        private UCActivityAdd ucActivityAdd;
-
         private List<Project> projects = new List<Project>();
-        private BindingList<Activity> activities = new BindingList<Activity>();
 
         private Project selectedProject;
-        private Activity selectedActivity;
+
+        private OneProjectGuiController oneProjectGuiController;
 
         public ProjectGuiController() 
-        { 
-        
-        }
-
-        public Control CreateUCProjectView()
         {
-            ucProjectView = new UCProjectView();
-
-            InitDgvProject();
-
-            ucProjectView.BtnAdd.Click += (s, a) => CreateFormProject(FormMode.Add);
-            ucProjectView.BtnUpdate.Click += (s, a) => CreateFormProject(FormMode.Update);
-
-            ucProjectView.BtnDetails.Click += (s, a) => CreateUCProjectDetails();
-
-
-            return ucProjectView;
+            oneProjectGuiController = new OneProjectGuiController();
         }
 
-        private void CreateUCProjectDetails()
+        private void InitDgvColumns(DataGridView dgv)
         {
-            if (projects.Count == 0)
-            {
-                MessageBox.Show("Nothing is selected!");
-                return;
-            }
-            
-            ucProjectDetails = new UCProjectDetails();
+            dgv.Columns["TableName"].Visible = false;
+            dgv.Columns["InsertColumn"].Visible = false;
+            dgv.Columns["InsertValues"].Visible = false;
+            dgv.Columns["UpdateValues"].Visible = false;
+            dgv.Columns["PrimaryKey"].Visible = false;
+            dgv.Columns["ForeignKey"].Visible = false;
+            dgv.Columns["ForeignKey2"].Visible = false;
+            dgv.Columns["Criteria"].Visible = false;
+            dgv.Columns["Search"].Visible = false;
 
-            selectedProject = (Project)ucProjectView.DgvProjects.CurrentRow.DataBoundItem;
-
-            ucProjectDetails.TxtName.Text = selectedProject.Name;
-            ucProjectDetails.TxtDescription.Text = selectedProject.Description;
-            ucProjectDetails.TxtDateStart.Text = selectedProject.Description.ToString();
-            ucProjectDetails.TxtDateEnd.Text = selectedProject.Description.ToString();
-            ucProjectDetails.TxtDuration.Text = selectedProject.Duration.ToString();
-
-            try
-            {
-                activities = Communication.Instance.GetActivitiesOfProject(selectedProject.Id);
-                ucProjectDetails.DgvActivities.DataSource = activities;
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            ucProjectDetails.Dock = DockStyle.Fill;
-            ucProjectDetails.AutoSize = true;
-
-            ucProjectView.PnlProject.Controls.Clear();
-            ucProjectView.PnlProject.Controls.Add(ucProjectDetails);
-
-
+            dgv.AutoSize = true;
         }
 
-        private void InitDgvProject()
+        private void InitDgvProjects()
         {
             try
             {
                 projects = Communication.Instance.GetAllProjects();
                 ucProjectView.DgvProjects.DataSource = projects;
 
-                ucProjectView.DgvProjects.Columns["TableName"].Visible = false;
-                ucProjectView.DgvProjects.Columns["InsertColumn"].Visible = false;
-                ucProjectView.DgvProjects.Columns["InsertValues"].Visible = false;
-                ucProjectView.DgvProjects.Columns["UpdateValues"].Visible = false;
-                ucProjectView.DgvProjects.Columns["PrimaryKey"].Visible = false;
-                ucProjectView.DgvProjects.Columns["ForeignKey"].Visible = false;
-                ucProjectView.DgvProjects.Columns["ForeignKey2"].Visible = false;
-                ucProjectView.DgvProjects.Columns["Criteria"].Visible = false;
-
-                ucProjectView.AutoSize = true;
-                ucProjectView.DgvProjects.AutoSize = true;
+                InitDgvColumns(ucProjectView.DgvProjects);
             }
             catch (SocketException ex)
             {
@@ -119,6 +64,95 @@ namespace Client.GuiController
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void InitDgvProjectsSearch(string criteria)
+        {
+            try
+            {
+                projects = Communication.Instance.GetProjectsSearch(criteria);
+                if (projects.Count == 0)
+                {
+                    MessageBox.Show("There is not project with this name!");
+                }
+
+                ucProjectView.DgvProjects.DataSource = projects;
+                InitDgvColumns(ucProjectView.DgvProjects);
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private BindingList<Activity> InitDgvActivities()
+        {
+            BindingList<Activity> a = new BindingList<Activity>();
+            try
+            {
+                a = Communication.Instance.GetActivitiesOfProject(selectedProject.Id);
+ 
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return a;
+        }
+
+        public void ChangePanel(UserControl uc, Panel pnl)
+        {
+            pnl.Controls.Clear();
+            pnl.Controls.Add(uc);
+            uc.Dock = DockStyle.Fill;
+            uc.AutoSize = true;
+            pnl.AutoSize = true;
+            uc.Width = pnl.Width;
+        }
+
+        public UserControl CreateUCProjectView()
+        {
+            ucProjectView = new UCProjectView();
+
+            InitDgvProjects();
+
+            ucProjectView.BtnAdd.Click += (s, a) => CreateFormProject(FormMode.Add);
+            ucProjectView.BtnUpdate.Click += (s, a) => CreateFormProject(FormMode.Update);
+
+
+            ucProjectView.BtnDetails.Click += (s, a) =>
+            {
+                if (projects.Count == 0)
+                {
+                    MessageBox.Show("Nothing to select!");
+                    return;
+                }
+
+                selectedProject = (Project)ucProjectView.DgvProjects.CurrentRow.DataBoundItem;
+                ChangePanel(oneProjectGuiController.CreateUCProjectDetails(selectedProject), ucProjectView.PnlProject);
+            };
+
+            ucProjectView.BtnSearch.Click += (s, a) =>
+            {
+                string criteria = ucProjectView.TxtSearch.Text;
+                InitDgvProjectsSearch(criteria);
+            };
+
+            ucProjectView.BtnViewAll.Click += (s, a) => InitDgvProjects();
+
+            return ucProjectView;
+        }
+
 
         private void CreateFormProject(FormMode formMode)
         {
@@ -131,50 +165,37 @@ namespace Client.GuiController
             frmProjectAdd.DgvActivities.Columns[1].Visible = false;
             frmProjectAdd.DgvActivities.Columns[4].Visible = false;
             frmProjectAdd.DgvActivities.Columns[6].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[7].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[8].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[9].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[10].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[11].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[12].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[13].Visible = false;
-            frmProjectAdd.DgvActivities.Columns[14].Visible = false;
+            InitDgvColumns(frmProjectAdd.DgvActivities);
 
-            frmProjectAdd.BtnAddActivity.Click += (s, a) => CreateUCActivityAdd(activityList);
-            frmProjectAdd.BtnDeleteActivity.Click += (s, a) =>
-            {
-                if (activityList.Count != 0)
-                {
-                    Activity act = (Activity)frmProjectAdd.DgvActivities.CurrentRow.DataBoundItem;
-                    activityList.Remove(act);
-                }
-                else
-                {
-                    MessageBox.Show("Nothing is selected!");
-                }
-            };
-
-
-            //selectedProject = (Project)ucProject.DgvProjects.CurrentRow.DataBoundItem;
-
-            //if (formMode != FormMode.Add)
-            //{
-            //    frmProject.TxtName.Text = selectedProject.Name;
-            //    frmProject.DtpDateOfStart.Value = selectedProject.DateStart;
-            //    frmProject.DtpDateOfEnd.Value = selectedProject.DateEnd;
-            //    frmProject.DgvActivities.DataSource = selectedProject.ActivityList;
-            //}
+            bool update = false;
+            HandleActivities(activityList, update);
+            
 
             switch (formMode)
             {
                 case FormMode.Add:
-                    frmProjectAdd.BtnSave.Text = "Add";
+                    frmProjectAdd.Text = "Add project";
                     frmProjectAdd.BtnSave.Click += (s, a) => AddProject(activityList);
                     break;
 
                 case FormMode.Update:
-                    frmProjectAdd.BtnSave.Text = "Update";
-                    frmProjectAdd.BtnSave.Click += UpdateProject;
+                    if (projects.Count == 0)
+                    {
+                        MessageBox.Show("Nothing to select!");
+                        return;
+                    }
+
+                    selectedProject = (Project)ucProjectView.DgvProjects.CurrentRow.DataBoundItem;
+
+                    frmProjectAdd.TxtName.Text = selectedProject.Name;
+                    frmProjectAdd.TxtDescription.Text = selectedProject.Description;
+                    frmProjectAdd.DtpDateOfStart.Value = selectedProject.DateStart;
+                    frmProjectAdd.DtpDateOfEnd.Value = selectedProject.DateEnd;
+                    frmProjectAdd.GroupBox1.Visible = false;
+                    //activityList = InitDgvActivities();
+
+                    frmProjectAdd.Text = "Update project";
+                    frmProjectAdd.BtnSave.Click += (s, a) => UpdateProject(activityList);
                     break;
 
                 default:
@@ -182,40 +203,84 @@ namespace Client.GuiController
             }
 
             frmProjectAdd.ShowDialog();
-            InitDgvProject();
-
+            InitDgvProjects();
         }
 
-        private void CreateUCActivityAdd(BindingList<Activity> activityList)
+        private void HandleActivities(BindingList<Activity> activityList, bool update)
         {
-            ucActivityAdd = new UCActivityAdd();
-            ucActivityAdd.BtnAdd.Click += (s, a) =>
+            Activity act = new Activity();
+            int index = 0;
+
+            frmProjectAdd.BtnCancle.Click += (s, a) =>
+            {
+                ClearActivity();
+                update = false;
+            };
+
+            frmProjectAdd.BtnAddActivity.Click += (s, a) =>
             {
                 Activity activity = new Activity
                 {
-                    Name = ucActivityAdd.TxtNameActivity.Text,
-                    //Description = ucActivityAdd.TxtDescription.Text,
-                    PlannedDuration = Int32.Parse(ucActivityAdd.TxtDuration.Text),
-                    Points = Int32.Parse(ucActivityAdd.TxtPoints.Text),
+                    Name = frmProjectAdd.TxtNameActivity.Text,
+                    //Description = frmProjectAdd.TxtDescription.Text,
+                    PlannedDuration = Int32.Parse(frmProjectAdd.TxtDuration.Text),
+                    Points = Int32.Parse(frmProjectAdd.TxtPoints.Text),
                 };
 
-                activityList.Add(activity);
+                if (update)
+                {
+                    activityList.Remove(act);
+                    activityList.Insert(index, activity);
+                }
+                else
+                {
+                    activityList.Add(activity);
+                }
 
+                ClearActivity();
+                update = false;
             };
 
+            frmProjectAdd.BtnUpdateActivity.Click += (s, a) =>
+            {
+                if (activityList.Count != 0)
+                {
+                    act = (Activity)frmProjectAdd.DgvActivities.CurrentRow.DataBoundItem;
+                    index = frmProjectAdd.DgvActivities.CurrentRow.Index;
 
-            frmProjectAdd.PnlActivity.Controls.Clear();
-            frmProjectAdd.PnlActivity.Controls.Add(ucActivityAdd);
+                    frmProjectAdd.TxtNameActivity.Text = act.Name;
+                    frmProjectAdd.TxtDuration.Text = act.PlannedDuration.ToString();
+                    frmProjectAdd.TxtPoints.Text = act.Points.ToString();
 
-            ucActivityAdd.Dock = DockStyle.Fill;
-            ucActivityAdd.AutoSize = true;
+                    update = true;
+                }
+                else
+                {
+                    MessageBox.Show("Nothing to select!");
+                }
+            };
 
+            frmProjectAdd.BtnDeleteActivity.Click += (s, a) =>
+            {
+                if (activityList.Count != 0)
+                {
+                    act = (Activity)frmProjectAdd.DgvActivities.CurrentRow.DataBoundItem;
+                    activityList.Remove(act);
+                }
+                else
+                {
+                    MessageBox.Show("Nothing to select!");
+                }
+            };
         }
 
-        private void AddActivityOnProject(object sender, EventArgs e)
+        private void ClearActivity()
         {
-            throw new NotImplementedException();
+            frmProjectAdd.TxtNameActivity.Clear();
+            frmProjectAdd.TxtDuration.Clear();
+            frmProjectAdd.TxtPoints.Clear();
         }
+
 
         private void AddProject(BindingList<Activity> activityList)
         {
@@ -233,7 +298,6 @@ namespace Client.GuiController
                 Communication.Instance.AddProject(project);
                 MessageBox.Show("Success!");
                 frmProjectAdd.Close();
-                projects.Add(project);
             }
             catch (SocketException ex)
             {
@@ -246,12 +310,13 @@ namespace Client.GuiController
             }
         }
 
-        private void UpdateProject(object sender, EventArgs e)
+        private void UpdateProject(BindingList<Activity> activityList)
         {
             selectedProject.Name = frmProjectAdd.TxtName.Text;
+            selectedProject.Description = frmProjectAdd.TxtDescription.Text;
             selectedProject.DateStart = frmProjectAdd.DtpDateOfStart.Value;
             selectedProject.DateEnd = frmProjectAdd.DtpDateOfEnd.Value;
-            selectedProject.ActivityList = (BindingList<Activity>)frmProjectAdd.DgvActivities.DataSource;
+            //selectedProject.ActivityList = activityList;
 
             try
             {
@@ -274,6 +339,7 @@ namespace Client.GuiController
         {
             frmProjectAdd.Close();
         }
+
 
     }
 }

@@ -6,19 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SysOp
+namespace SystemOperations
 {
-    public class UpdateMemberSysOp : SystemOperationBase
+    public class GetMemberActivitiesSysOp : SystemOperationBase
     {
         private readonly Member m;
-        public UpdateMemberSysOp(Member m) 
+        public List<Activity> Result { get; set; }
+
+        public GetMemberActivitiesSysOp(Member m)
         {
             this.m = m;
         }
 
         protected override void ExecuteConcreteOperation()
         {
-            broker.Update(m, m.Id);
+            Result = broker.GetTwoJoin(new MemberActivity(), new Activity(), new Project(), m.Id).OfType<Activity>().ToList();
         }
     }
 }

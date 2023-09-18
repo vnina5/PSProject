@@ -30,11 +30,11 @@ namespace Client.GuiController
             string username = frmLogin.TxtUsername.Text;
             string password = frmLogin.TxtPassword.Text;
 
-            User user = Communication.Instance.LoginUser(username, password);
-            if (user != null && user.Username != null)
+            List<User> users = Communication.Instance.LoginUser(username, password);
+            if (users.Count == 1 && users.First<User>().Username != null)
             {
                 MessageBox.Show("Success!");
-                MainGuiController.Instance.logedUser = user;
+                MainGuiController.Instance.logedUser = users.First<User>();
                 MainGuiController.Instance.ShowFrmMain(frmLogin);
             }
             else

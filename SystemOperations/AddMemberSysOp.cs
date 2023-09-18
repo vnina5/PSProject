@@ -11,7 +11,6 @@ namespace SysOp
     public class AddMemberSysOp : SystemOperationBase
     {
         private readonly Member m;
-
         public AddMemberSysOp(Member m) 
         {
             this.m = m;

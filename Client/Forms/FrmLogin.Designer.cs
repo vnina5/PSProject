@@ -105,11 +105,11 @@ namespace Client
 
         #endregion
 
-        private System.Windows.Forms.Label lblUsername;
-        private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button btnLogin;
+        private Label lblUsername;
+        private Label lblPassword;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private Button btnLogin;
 
         public TextBox TxtUsername { get => txtUsername; set => txtUsername = value; }
         public TextBox TxtPassword { get => txtPassword; set => txtPassword = value; }

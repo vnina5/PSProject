@@ -42,11 +42,17 @@ namespace Client.UserControls
             this.label5 = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnMA = new System.Windows.Forms.Button();
+            this.txtMember = new System.Windows.Forms.TextBox();
+            this.lblMember = new System.Windows.Forms.Label();
+            this.dgvAssignedMembers = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAssignedMembers)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPoints
             // 
-            this.txtPoints.Location = new System.Drawing.Point(446, 74);
+            this.txtPoints.Location = new System.Drawing.Point(517, 112);
             this.txtPoints.Name = "txtPoints";
             this.txtPoints.Size = new System.Drawing.Size(137, 22);
             this.txtPoints.TabIndex = 65;
@@ -54,7 +60,7 @@ namespace Client.UserControls
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(368, 80);
+            this.label2.Location = new System.Drawing.Point(439, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 16);
             this.label2.TabIndex = 64;
@@ -62,15 +68,15 @@ namespace Client.UserControls
             // 
             // txtNameActivity
             // 
-            this.txtNameActivity.Location = new System.Drawing.Point(128, 21);
+            this.txtNameActivity.Location = new System.Drawing.Point(185, 62);
             this.txtNameActivity.Name = "txtNameActivity";
-            this.txtNameActivity.Size = new System.Drawing.Size(222, 22);
+            this.txtNameActivity.Size = new System.Drawing.Size(469, 22);
             this.txtNameActivity.TabIndex = 59;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 27);
+            this.label6.Location = new System.Drawing.Point(58, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 16);
             this.label6.TabIndex = 58;
@@ -78,7 +84,7 @@ namespace Client.UserControls
             // 
             // txtPlannedDuration
             // 
-            this.txtPlannedDuration.Location = new System.Drawing.Point(150, 71);
+            this.txtPlannedDuration.Location = new System.Drawing.Point(185, 112);
             this.txtPlannedDuration.Name = "txtPlannedDuration";
             this.txtPlannedDuration.Size = new System.Drawing.Size(107, 22);
             this.txtPlannedDuration.TabIndex = 67;
@@ -86,7 +92,7 @@ namespace Client.UserControls
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 77);
+            this.label1.Location = new System.Drawing.Point(58, 118);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(108, 16);
             this.label1.TabIndex = 66;
@@ -94,7 +100,7 @@ namespace Client.UserControls
             // 
             // txtActualDuration
             // 
-            this.txtActualDuration.Location = new System.Drawing.Point(150, 118);
+            this.txtActualDuration.Location = new System.Drawing.Point(185, 159);
             this.txtActualDuration.Name = "txtActualDuration";
             this.txtActualDuration.Size = new System.Drawing.Size(107, 22);
             this.txtActualDuration.TabIndex = 69;
@@ -102,7 +108,7 @@ namespace Client.UserControls
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 124);
+            this.label3.Location = new System.Drawing.Point(58, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 16);
             this.label3.TabIndex = 68;
@@ -111,7 +117,7 @@ namespace Client.UserControls
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(263, 74);
+            this.label4.Location = new System.Drawing.Point(298, 115);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 16);
             this.label4.TabIndex = 70;
@@ -120,7 +126,7 @@ namespace Client.UserControls
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(263, 124);
+            this.label5.Location = new System.Drawing.Point(298, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(14, 16);
             this.label5.TabIndex = 71;
@@ -128,7 +134,7 @@ namespace Client.UserControls
             // 
             // txtStatus
             // 
-            this.txtStatus.Location = new System.Drawing.Point(446, 121);
+            this.txtStatus.Location = new System.Drawing.Point(517, 159);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(137, 22);
             this.txtStatus.TabIndex = 73;
@@ -136,16 +142,66 @@ namespace Client.UserControls
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(368, 127);
+            this.label7.Location = new System.Drawing.Point(439, 165);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 16);
             this.label7.TabIndex = 72;
             this.label7.Text = "Status";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(57, 20);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(172, 20);
+            this.label9.TabIndex = 74;
+            this.label9.Text = "ACTIVITY DETAILS";
+            // 
+            // btnMA
+            // 
+            this.btnMA.Location = new System.Drawing.Point(516, 221);
+            this.btnMA.Name = "btnMA";
+            this.btnMA.Size = new System.Drawing.Size(137, 30);
+            this.btnMA.TabIndex = 75;
+            this.btnMA.Text = "MA";
+            this.btnMA.UseVisualStyleBackColor = true;
+            // 
+            // txtMember
+            // 
+            this.txtMember.Location = new System.Drawing.Point(185, 232);
+            this.txtMember.Name = "txtMember";
+            this.txtMember.Size = new System.Drawing.Size(222, 22);
+            this.txtMember.TabIndex = 76;
+            // 
+            // lblMember
+            // 
+            this.lblMember.AutoSize = true;
+            this.lblMember.Location = new System.Drawing.Point(58, 235);
+            this.lblMember.Name = "lblMember";
+            this.lblMember.Size = new System.Drawing.Size(117, 16);
+            this.lblMember.TabIndex = 77;
+            this.lblMember.Text = "Assigned member";
+            // 
+            // dgvAssignedMembers
+            // 
+            this.dgvAssignedMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAssignedMembers.Location = new System.Drawing.Point(61, 276);
+            this.dgvAssignedMembers.Name = "dgvAssignedMembers";
+            this.dgvAssignedMembers.RowHeadersWidth = 51;
+            this.dgvAssignedMembers.RowTemplate.Height = 24;
+            this.dgvAssignedMembers.Size = new System.Drawing.Size(592, 240);
+            this.dgvAssignedMembers.TabIndex = 78;
+            // 
             // UCActivityDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dgvAssignedMembers);
+            this.Controls.Add(this.lblMember);
+            this.Controls.Add(this.txtMember);
+            this.Controls.Add(this.btnMA);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -159,8 +215,9 @@ namespace Client.UserControls
             this.Controls.Add(this.txtNameActivity);
             this.Controls.Add(this.label6);
             this.Name = "UCActivityDetails";
-            this.Size = new System.Drawing.Size(653, 228);
+            this.Size = new System.Drawing.Size(750, 550);
             this.Load += new System.EventHandler(this.UCActivityDetails_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAssignedMembers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,23 +225,32 @@ namespace Client.UserControls
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtPoints;
-        private System.Windows.Forms.TextBox txtNameActivity;
-        private System.Windows.Forms.TextBox txtPlannedDuration;
-        private System.Windows.Forms.TextBox txtActualDuration;
-        private System.Windows.Forms.TextBox txtStatus;
+        private Label label2;
+        private Label label6;
+        private Label label1;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label7;
+        private Label label9;
+        private Label lblMember;
+        private TextBox txtPoints;
+        private TextBox txtNameActivity;
+        private TextBox txtPlannedDuration;
+        private TextBox txtActualDuration;
+        private TextBox txtStatus;
+        private Button btnMA;
+        private TextBox txtMember;
+        private DataGridView dgvAssignedMembers;
 
         public TextBox TxtPoints { get => txtPoints; set => txtPoints = value; }
         public TextBox TxtNameActivity { get => txtNameActivity; set => txtNameActivity = value; }
         public TextBox TxtPlannedDuration { get => txtPlannedDuration; set => txtPlannedDuration = value; }
         public TextBox TxtActualDuration { get => txtActualDuration; set => txtActualDuration = value; }
         public TextBox TxtStatus { get => txtStatus; set => txtStatus = value; }
+        public Button BtnMA { get => btnMA; set => btnMA = value; }
+        public TextBox TxtMember { get => txtMember; set => txtMember = value; }
+        public Label LblMember { get => lblMember; set => lblMember = value; }
+        public DataGridView DgvAssignedMembers { get => dgvAssignedMembers; set => dgvAssignedMembers = value; }
     }
 }

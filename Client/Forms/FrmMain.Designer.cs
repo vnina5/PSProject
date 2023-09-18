@@ -45,10 +45,10 @@ namespace Client
             this.pnlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlMain.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlMain.BackColor = System.Drawing.SystemColors.Control;
             this.pnlMain.Location = new System.Drawing.Point(0, 43);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 380);
+            this.pnlMain.Size = new System.Drawing.Size(976, 391);
             this.pnlMain.TabIndex = 0;
             // 
             // msMain
@@ -61,9 +61,10 @@ namespace Client
             this.logOutToolStripMenuItem});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(800, 40);
+            this.msMain.Size = new System.Drawing.Size(976, 40);
             this.msMain.TabIndex = 1;
             this.msMain.Text = "menuStrip1";
+            this.msMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.msMain_ItemClicked);
             // 
             // membersToolStripMenuItem
             // 
@@ -72,6 +73,8 @@ namespace Client
             this.membersToolStripMenuItem.Name = "membersToolStripMenuItem";
             this.membersToolStripMenuItem.Size = new System.Drawing.Size(100, 30);
             this.membersToolStripMenuItem.Text = "Members";
+            this.membersToolStripMenuItem.BackColorChanged += new System.EventHandler(this.membersToolStripMenuItem_BackColorChanged);
+            this.membersToolStripMenuItem.DisplayStyleChanged += new System.EventHandler(this.membersToolStripMenuItem_DisplayStyleChanged);
             // 
             // projectsToolStripMenuItem
             // 
@@ -94,7 +97,7 @@ namespace Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(976, 436);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.msMain);
             this.MainMenuStrip = this.msMain;
@@ -113,13 +116,14 @@ namespace Client
         private MenuStrip msMain;
         private ToolStripMenuItem membersToolStripMenuItem;
         private ToolStripMenuItem projectsToolStripMenuItem;
-        private BackgroundWorker backgroundWorker1;
         private ToolStripMenuItem logOutToolStripMenuItem;
+        private BackgroundWorker backgroundWorker1;
 
         public Panel PnlMain { get => pnlMain; set => pnlMain = value; }
         public MenuStrip MsMain { get => msMain; set => msMain = value; }
         public ToolStripMenuItem MembersToolStripMenuItem { get => membersToolStripMenuItem; set => membersToolStripMenuItem = value; }
         public ToolStripMenuItem ProjectsToolStripMenuItem { get => projectsToolStripMenuItem; set => projectsToolStripMenuItem = value; }
+        public ToolStripMenuItem LogOutToolStripMenuItem { get => logOutToolStripMenuItem; set => logOutToolStripMenuItem = value; }
         public BackgroundWorker BackgroundWorker1 { get => backgroundWorker1; set => backgroundWorker1 = value; }
     }
 }

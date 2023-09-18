@@ -6,19 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SysOp
+namespace SystemOperations
 {
-    public class UpdateMemberSysOp : SystemOperationBase
+    public class UpdateActivitySysOp : SystemOperationBase
     {
-        private readonly Member m;
-        public UpdateMemberSysOp(Member m) 
+        private readonly Activity a;
+        public UpdateActivitySysOp(Activity a) 
         {
-            this.m = m;
+            this.a = a;
         }
 
         protected override void ExecuteConcreteOperation()
         {
-            broker.Update(m, m.Id);
+            broker.Update(a, a.Id);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Server
             }
         }
 
-        internal User LoginUser(User user)
+        internal object LoginUser(User user)
         {
             SystemOperationBase so = new LoginSysOp(user);
             so.Execute();
@@ -36,9 +36,9 @@ namespace Server
             so.Execute();
             return ((GetAllMembersSysOp)so).Result;
         }
-        internal object GetMember(Member member)
+        internal object GetMember(int id)
         {
-            SystemOperationBase so = new GetMemberSysOp(member);
+            SystemOperationBase so = new GetMemberSysOp(id);
             so.Execute();
             return ((GetMemberSysOp)so).Result;
         }
@@ -47,14 +47,12 @@ namespace Server
         {
             SystemOperationBase so = new AddMemberSysOp(member);
             so.Execute();
-            //return so.Result;
         }
 
         internal void UpdateMember(Member member)
         {
             SystemOperationBase so = new UpdateMemberSysOp(member);
             so.Execute();
-            //return so.Result;
         }
 
         internal object GetAllSectors()
@@ -64,9 +62,9 @@ namespace Server
             return ((GetAllSectorsSysOp)so).Result;
         }
 
-        internal object GetSectors(Sector sector)
+        internal object GetSectors(int id)
         {
-            SystemOperationBase so = new GetSectorSysOp(sector);
+            SystemOperationBase so = new GetSectorSysOp(id);
             so.Execute();
             return ((GetSectorSysOp)so).Result;
         }
@@ -86,7 +84,74 @@ namespace Server
 
         internal void UpdateProject(Project project)
         {
-            throw new NotImplementedException();
+            SystemOperationBase so = new UpdateProjectSysOp(project);
+            so.Execute();
+        }
+
+        internal object GetActivitiesOfProject(int projectId)
+        {
+            SystemOperationBase so = new GetActivitiesOfProjectSysOp(projectId);
+            so.Execute();
+            return ((GetActivitiesOfProjectSysOp)so).Result;
+        }
+
+        internal void AddActivity(Activity activity)
+        {
+            SystemOperationBase so = new AddActivitySysOp(activity);
+            so.Execute();
+        }
+
+        internal void UpdateActivity(Activity activity)
+        {
+            SystemOperationBase so = new UpdateActivitySysOp(activity);
+            so.Execute();
+        }
+
+        internal void AssignMemberActivity(List<MemberActivity> listMemberActivityy)
+        {
+            SystemOperationBase so = new AssignMemberActivitySysOp(listMemberActivityy);
+            so.Execute();
+        }
+
+        internal object GetMembersSearch(string criteria)
+        {
+            SystemOperationBase so = new SearchMembersSysOp(criteria);
+            so.Execute();
+            return ((SearchMembersSysOp)so).Result;
+        }
+
+        internal object GetProjectsSearch(string criteria)
+        {
+            SystemOperationBase so = new SearchProjectsSysOp(criteria);
+            so.Execute();
+            return ((SearchProjectsSysOp)so).Result;
+        }
+
+        internal object GetFilterActivitiesOfProject(StatusActivity status, int projectId)
+        {
+            SystemOperationBase so = new FilterActivitiesOfProjectSysOp(status, projectId);
+            so.Execute();
+            return ((FilterActivitiesOfProjectSysOp)so).Result;
+        }
+
+        internal object GetMemberActivities(Member member)
+        {
+            SystemOperationBase so = new GetMemberActivitiesSysOp(member);
+            so.Execute();
+            return ((GetMemberActivitiesSysOp)so).Result;
+        }
+
+        internal object GetActivityMembers(Activity activity)
+        {
+            SystemOperationBase so = new GetActivityMembersSysOp(activity);
+            so.Execute();
+            return ((GetActivityMembersSysOp)so).Result;
+        }
+
+        internal void CompletMemberActivity(List<MemberActivity> listMemberActivity)
+        {
+            SystemOperationBase so = new CompletMemberActivitySysOp(listMemberActivity);
+            so.Execute();
         }
     }
 }

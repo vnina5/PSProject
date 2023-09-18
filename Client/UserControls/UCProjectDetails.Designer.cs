@@ -44,13 +44,18 @@ namespace Client.UserControls
             this.label7 = new System.Windows.Forms.Label();
             this.dgvActivities = new System.Windows.Forms.DataGridView();
             this.pnlActivity = new System.Windows.Forms.Panel();
+            this.btnDetailsActivity = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnViewAllActivities = new System.Windows.Forms.Button();
+            this.cmbFilterActivity = new System.Windows.Forms.ComboBox();
+            this.btnFilterActivity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActivities)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Location = new System.Drawing.Point(26, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 16);
             this.label1.TabIndex = 0;
@@ -59,7 +64,7 @@ namespace Client.UserControls
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 69);
+            this.label2.Location = new System.Drawing.Point(26, 114);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 16);
             this.label2.TabIndex = 1;
@@ -67,15 +72,15 @@ namespace Client.UserControls
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(139, 69);
+            this.txtDescription.Location = new System.Drawing.Point(123, 111);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(245, 69);
+            this.txtDescription.Size = new System.Drawing.Size(245, 110);
             this.txtDescription.TabIndex = 58;
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(139, 23);
+            this.txtName.Location = new System.Drawing.Point(123, 64);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(245, 22);
             this.txtName.TabIndex = 55;
@@ -83,7 +88,7 @@ namespace Client.UserControls
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(471, 29);
+            this.label3.Location = new System.Drawing.Point(26, 251);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 16);
             this.label3.TabIndex = 59;
@@ -92,7 +97,7 @@ namespace Client.UserControls
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(831, 28);
+            this.label4.Location = new System.Drawing.Point(29, 300);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 16);
             this.label4.TabIndex = 60;
@@ -100,21 +105,21 @@ namespace Client.UserControls
             // 
             // txtDateEnd
             // 
-            this.txtDateEnd.Location = new System.Drawing.Point(882, 23);
+            this.txtDateEnd.Location = new System.Drawing.Point(123, 297);
             this.txtDateEnd.Name = "txtDateEnd";
             this.txtDateEnd.Size = new System.Drawing.Size(245, 22);
             this.txtDateEnd.TabIndex = 61;
             // 
             // txtDateStart
             // 
-            this.txtDateStart.Location = new System.Drawing.Point(526, 26);
+            this.txtDateStart.Location = new System.Drawing.Point(123, 248);
             this.txtDateStart.Name = "txtDateStart";
             this.txtDateStart.Size = new System.Drawing.Size(245, 22);
             this.txtDateStart.TabIndex = 62;
             // 
             // txtDuration
             // 
-            this.txtDuration.Location = new System.Drawing.Point(526, 69);
+            this.txtDuration.Location = new System.Drawing.Point(123, 345);
             this.txtDuration.Name = "txtDuration";
             this.txtDuration.Size = new System.Drawing.Size(79, 22);
             this.txtDuration.TabIndex = 64;
@@ -122,7 +127,7 @@ namespace Client.UserControls
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(463, 72);
+            this.label5.Location = new System.Drawing.Point(26, 348);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 16);
             this.label5.TabIndex = 63;
@@ -131,7 +136,7 @@ namespace Client.UserControls
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(611, 75);
+            this.label6.Location = new System.Drawing.Point(208, 351);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(14, 16);
             this.label6.TabIndex = 65;
@@ -140,7 +145,7 @@ namespace Client.UserControls
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(26, 165);
+            this.label7.Location = new System.Drawing.Point(432, 67);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(77, 16);
             this.label7.TabIndex = 66;
@@ -149,24 +154,74 @@ namespace Client.UserControls
             // dgvActivities
             // 
             this.dgvActivities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvActivities.Location = new System.Drawing.Point(29, 198);
+            this.dgvActivities.Location = new System.Drawing.Point(435, 101);
             this.dgvActivities.Name = "dgvActivities";
             this.dgvActivities.RowHeadersWidth = 51;
             this.dgvActivities.RowTemplate.Height = 24;
-            this.dgvActivities.Size = new System.Drawing.Size(355, 195);
-            this.dgvActivities.TabIndex = 67;
+            this.dgvActivities.Size = new System.Drawing.Size(700, 266);
+            this.dgvActivities.TabIndex = 0;
             // 
             // pnlActivity
             // 
-            this.pnlActivity.Location = new System.Drawing.Point(474, 165);
+            this.pnlActivity.Location = new System.Drawing.Point(1170, 20);
             this.pnlActivity.Name = "pnlActivity";
-            this.pnlActivity.Size = new System.Drawing.Size(653, 228);
+            this.pnlActivity.Size = new System.Drawing.Size(750, 550);
             this.pnlActivity.TabIndex = 68;
+            // 
+            // btnDetailsActivity
+            // 
+            this.btnDetailsActivity.Location = new System.Drawing.Point(1016, 382);
+            this.btnDetailsActivity.Name = "btnDetailsActivity";
+            this.btnDetailsActivity.Size = new System.Drawing.Size(110, 30);
+            this.btnDetailsActivity.TabIndex = 69;
+            this.btnDetailsActivity.Text = "Details";
+            this.btnDetailsActivity.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(25, 20);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(177, 20);
+            this.label9.TabIndex = 70;
+            this.label9.Text = "PROJECT DETAILS";
+            // 
+            // btnViewAllActivities
+            // 
+            this.btnViewAllActivities.Location = new System.Drawing.Point(1016, 60);
+            this.btnViewAllActivities.Name = "btnViewAllActivities";
+            this.btnViewAllActivities.Size = new System.Drawing.Size(110, 30);
+            this.btnViewAllActivities.TabIndex = 71;
+            this.btnViewAllActivities.Text = "View all";
+            this.btnViewAllActivities.UseVisualStyleBackColor = true;
+            // 
+            // cmbFilterActivity
+            // 
+            this.cmbFilterActivity.FormattingEnabled = true;
+            this.cmbFilterActivity.Location = new System.Drawing.Point(730, 64);
+            this.cmbFilterActivity.Name = "cmbFilterActivity";
+            this.cmbFilterActivity.Size = new System.Drawing.Size(164, 24);
+            this.cmbFilterActivity.TabIndex = 72;
+            // 
+            // btnFilterActivity
+            // 
+            this.btnFilterActivity.Location = new System.Drawing.Point(900, 60);
+            this.btnFilterActivity.Name = "btnFilterActivity";
+            this.btnFilterActivity.Size = new System.Drawing.Size(110, 30);
+            this.btnFilterActivity.TabIndex = 73;
+            this.btnFilterActivity.Text = "Filter";
+            this.btnFilterActivity.UseVisualStyleBackColor = true;
             // 
             // UCProjectDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnFilterActivity);
+            this.Controls.Add(this.cmbFilterActivity);
+            this.Controls.Add(this.btnViewAllActivities);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.btnDetailsActivity);
             this.Controls.Add(this.pnlActivity);
             this.Controls.Add(this.dgvActivities);
             this.Controls.Add(this.label7);
@@ -182,7 +237,7 @@ namespace Client.UserControls
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "UCProjectDetails";
-            this.Size = new System.Drawing.Size(1150, 424);
+            this.Size = new System.Drawing.Size(1950, 600);
             this.Load += new System.EventHandler(this.UCProjectDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvActivities)).EndInit();
             this.ResumeLayout(false);
@@ -192,20 +247,25 @@ namespace Client.UserControls
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtDateEnd;
-        private System.Windows.Forms.TextBox txtDateStart;
-        private System.Windows.Forms.TextBox txtDuration;
-        private System.Windows.Forms.DataGridView dgvActivities;
-        private System.Windows.Forms.Panel pnlActivity;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private TextBox txtName;
+        private TextBox txtDescription;
+        private TextBox txtDateStart;
+        private TextBox txtDateEnd;
+        private TextBox txtDuration;
+        private DataGridView dgvActivities;
+        private Panel pnlActivity;
+        private Button btnDetailsActivity;
+        private Label label9;
+        private Button btnViewAllActivities;
+        private ComboBox cmbFilterActivity;
+        private Button btnFilterActivity;
 
         public TextBox TxtDescription { get => txtDescription; set => txtDescription = value; }
         public TextBox TxtName { get => txtName; set => txtName = value; }
@@ -214,5 +274,9 @@ namespace Client.UserControls
         public TextBox TxtDuration { get => txtDuration; set => txtDuration = value; }
         public DataGridView DgvActivities { get => dgvActivities; set => dgvActivities = value; }
         public Panel PnlActivity { get => pnlActivity; set => pnlActivity = value; }
+        public Button BtnDetailsActivity { get => btnDetailsActivity; set => btnDetailsActivity = value; }
+        public Button BtnViewAll { get => btnViewAllActivities; set => btnViewAllActivities = value; }
+        public ComboBox CmbFilterActivity { get => cmbFilterActivity; set => cmbFilterActivity = value; }
+        public Button BtnFilterActivity { get => btnFilterActivity; set => btnFilterActivity = value; }
     }
 }

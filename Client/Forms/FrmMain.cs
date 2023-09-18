@@ -24,16 +24,32 @@ namespace Client
             projectsToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowProjectPanel();
             logOutToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.Logout();
 
+            pnlMain.Width = this.Width;
         }
 
-        public void ChangePanel(Control UControl)
+        private void msMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(UControl);
-            UControl.Dock = DockStyle.Fill;
-            pnlMain.AutoSize = true;
 
         }
+
+        private void membersToolStripMenuItem_BackColorChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void membersToolStripMenuItem_DisplayStyleChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //public void ChangePanel(Control UControl)
+        //{
+        //    pnlMain.Controls.Clear();
+        //    pnlMain.Controls.Add(UControl);
+        //    UControl.Dock = DockStyle.Fill;
+        //    pnlMain.AutoSize = true;
+
+        //}
 
 
     }

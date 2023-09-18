@@ -27,8 +27,8 @@ namespace Server
             try
             {
                 socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9988);
-                //IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ConfigurationManager.AppSettings["ip"]), int.Parse(ConfigurationManager.AppSettings["port"]));
+                //IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9988);
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ConfigurationManager.AppSettings["ip"]), int.Parse(ConfigurationManager.AppSettings["port"]));
                 socketServer.Bind(ep);
 
                 socketServer.Listen(10);

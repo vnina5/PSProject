@@ -10,18 +10,16 @@ namespace SystemOperations
 {
     public class GetMemberSysOp : SystemOperationBase
     {
-        private readonly Member m;
-
+        private readonly int id;
         public Member Result { get; set; }
-
-        public GetMemberSysOp(Member m)
+        public GetMemberSysOp(int id)
         {
-            this.m = m;
+            this.id = id;
         }
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = (Member)broker.Get(m);
+            Result = (Member)broker.GetOne(new Member(), id);
 
         }
     }

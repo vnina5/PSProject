@@ -39,7 +39,7 @@ namespace Client
             receiver = new Receiver(socket);
         }
 
-        internal User LoginUser(string username, string password)
+        internal List<User> LoginUser(string username, string password)
         {
             Request request = new Request();
             request.Operation = Operation.Login;
@@ -55,7 +55,7 @@ namespace Client
             {
                 throw response.Exception;
             }
-            return (User)response.Result;
+            return (List<User>)response.Result;
 
         }
 
@@ -157,10 +157,139 @@ namespace Client
             }
         }
 
-        internal BindingList<Activity> GetActivitiesOfProject(int id)
+        internal BindingList<Activity> GetActivitiesOfProject(int projectId)
         {
-            throw new NotImplementedException();
+            Request request = new Request();
+            request.Operation = Operation.GetActivitiesOfProject;
+            request.Object = projectId;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return new BindingList<Activity>((List<Activity>)response.Result);
         }
+
+        internal void AssignMemberActivity(List<MemberActivity> listMemberActivity)
+        {
+            Request request = new Request();
+            request.Operation = Operation.AssignMemberActivity;
+            request.Object = listMemberActivity;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal void CompletMemberActivity(List<MemberActivity> listMemberActivity)
+        {
+            Request request = new Request();
+            request.Operation = Operation.CompletMemberActivity;
+            request.Object = listMemberActivity;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal void UpdateActivity(Activity activity)
+        {
+            Request request = new Request();
+            request.Operation = Operation.UpdateActivity;
+            request.Object = activity;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+        }
+
+        internal List<Member> GetMembersSearch(string criteria)
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetMembersSearch;
+            request.Object = criteria;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return (List<Member>)response.Result;
+        }
+
+        internal List<Project> GetProjectsSearch(string criteria)
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetProjectsSearch;
+            request.Object = criteria;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return (List<Project>)response.Result;
+        }
+
+        internal BindingList<Activity> GetFilterActivitiesOfProject(StatusActivity status, int projectId)
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetFilterActivitiesOfProject;
+            object[] array = { status, projectId };
+            request.Object = array;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return new BindingList<Activity>((List<Activity>)response.Result);
+        }
+
+        internal List<Activity> GetMemberActivities(Member member)
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetMemberActivities;
+            request.Object = member;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return (List<Activity>)response.Result;
+        }
+
+        internal List<MemberActivity> GetActivityMembers(Activity activity)
+        {
+            Request request = new Request();
+            request.Operation = Operation.GetActivityMembers;
+            request.Object = activity;
+            sender.Send(request);
+
+            Response response = receiver.Receive<Response>();
+            if (response.Exception != null)
+            {
+                throw response.Exception;
+            }
+            return (List<MemberActivity>)response.Result;
+        }
+
 
         //internal Sector GetSector(int sectorId)
         //{

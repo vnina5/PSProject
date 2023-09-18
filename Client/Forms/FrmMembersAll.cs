@@ -8,18 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client.UserControls
+namespace Client.Forms
 {
-    public partial class UCProjectView : UserControl
+    public partial class FrmMembersAll : Form
     {
-        public UCProjectView()
+        public FrmMembersAll()
         {
             InitializeComponent();
         }
 
-        private void UCProjectView_Load(object sender, EventArgs e)
+        private void dgvMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
+        }
+
+        private void FrmMembersAll_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

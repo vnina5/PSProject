@@ -26,9 +26,11 @@ namespace Common
 
         public object ForeignKey => throw new NotImplementedException();
 
-        public string Criteria => $"id = {Id}";
-
         public object ForeignKey2 => throw new NotImplementedException();
+
+        public string Criteria => $"id = {Id}";
+        
+        public string Search => "name";
 
 
         public List<IEntity> GetEntities(SqlDataReader reader)
@@ -54,6 +56,16 @@ namespace Common
                 result.Name = (string)reader["Name"];
             }
             return result;
+        }
+
+        public List<IEntity> GetJoinEntities(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntity GetJoinEntity(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToString()

@@ -24,7 +24,6 @@ namespace Common
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        //public DateTime DateOfBirth { get; set; }
         public Year YearOfStudy { get; set; }
         public int NumOfActivities { get; set; } = 0;
         public int HoursOfWork { get; set; } = 0;
@@ -37,21 +36,22 @@ namespace Common
 
         public string InsertValues => $"'{FirstName}', '{LastName}', '{Email}', '{Password}', '{(int)YearOfStudy}', '{NumOfActivities}', '{HoursOfWork}', '{Points}', '{Sector.Id}'";
 
-        public string UpdateValues => $"firstname = '{FirstName}', lastname = '{LastName}', email = '{Email}', yearofstudy = '{(int)YearOfStudy}', sector = '{Sector.Id}'";
-
+        public string UpdateValues => $"firstname = '{FirstName}', lastname = '{LastName}', email = '{Email}', yearofstudy = '{(int)YearOfStudy}',numofactivities = '{NumOfActivities}', hoursofwork = '{HoursOfWork}', points = '{Points}', sector = '{Sector.Id}'";
+        
         public object PrimaryKey => "id";
 
         public object ForeignKey => "sector";
 
-        public string Criteria => $"id = {Id}";
-
         public object ForeignKey2 => throw new NotImplementedException();
 
+        public string Criteria => $"id = {Id}";
 
-        public List<IEntity> GetEntities(SqlDataReader reader)
+        public string Search => "lastname";
+
+
+        public List<IEntity> GetJoinEntities(SqlDataReader reader)
         {
             List<IEntity> list = new List<IEntity>();
-            Member result = new Member();
             while (reader.Read())
             {
                 list.Add(new Member
@@ -61,7 +61,6 @@ namespace Common
                     LastName = (string)reader["LastName"],
                     Email = reader["Email"].ToString(),
                     Password = reader["Password"].ToString(),
-                    //DateOfBirth = (DateTime)reader["DateOfBirth"],
                     YearOfStudy = (Year)reader["YearOfStudy"],
                     NumOfActivities = reader["NumOfActivities"] == DBNull.Value ? 0 : (int)reader["NumOfActivities"],
                     HoursOfWork = reader["HoursOfWork"] == DBNull.Value ? 0 : (int)reader["HoursOfWork"],
@@ -76,7 +75,7 @@ namespace Common
             return list;
         }
 
-        public IEntity GetEntity(SqlDataReader reader)
+        public IEntity GetJoinEntity(SqlDataReader reader)
         {
             Member result = new Member();
             while (reader.Read())
@@ -86,7 +85,6 @@ namespace Common
                 result.LastName = (string)reader["LastName"];
                 result.Email = (string)reader["Email"];
                 result.Password = (string)reader["Password"];
-                //result.DateOfBirth = (DateTime)reader["DateOfBirth"];
                 result.YearOfStudy = (Year)reader["YearOfStudy"];
                 result.NumOfActivities = reader["NumOfActivities"] == DBNull.Value ? 0 : (int)reader["NumOfActivities"];
                 result.HoursOfWork = reader["HoursOfWork"] == DBNull.Value ? 0 : (int)reader["HoursOfWork"];
@@ -100,6 +98,36 @@ namespace Common
             return result;
         }
 
+        public List<IEntity> GetEntities(SqlDataReader reader)
+        {
+            List<IEntity> list = new List<IEntity>();
+            while (reader.Read())
+            {
+                list.Add(new Member
+                {
+                    Id = (int)reader[0],
+                    FirstName = (string)reader[1],
+                    LastName = (string)reader[2],
+                    Email = reader[3].ToString(),
+                    Password = reader[4].ToString(),
+                    YearOfStudy = (Year)reader[5],
+                    NumOfActivities = reader[6] == DBNull.Value ? 0 : (int)reader[6],
+                    HoursOfWork = reader[7] == DBNull.Value ? 0 : (int)reader[7],
+                    Points = reader[8] == DBNull.Value ? 0 : (int)reader[8],
+                    Sector = new Sector
+                    {
+                        Id = (int)reader[9],
+                        //Name = reader[14].ToString(),
+                    }
+                });
+            }
+            return list;
+        }
+
+        public IEntity GetEntity(SqlDataReader reader)
+        {
+           throw new NotImplementedException();
+        }
 
         public override string ToString()
         {

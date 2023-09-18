@@ -17,7 +17,8 @@ namespace Common
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public int Duration { get; set; } = 0;
-        public BindingList<Activity> ActivityList { get; set; }
+        public BindingList<Activity> ActivityList { get; set; } = new BindingList<Activity>();
+        //public List<Activity> ActivityList { get; set; } = new List<Activity>();
 
         public string TableName => "project";
 
@@ -31,9 +32,11 @@ namespace Common
 
         public object ForeignKey => throw new NotImplementedException();
 
-        public string Criteria => $"id = '{Id}'";
-
         public object ForeignKey2 => throw new NotImplementedException();
+
+        public string Criteria => $"id = '{Id}'";
+       
+        public string Search => "name";
 
 
         public List<IEntity> GetEntities(SqlDataReader reader)
@@ -49,7 +52,6 @@ namespace Common
                     DateStart = reader["DateStart"] == DBNull.Value ? DateTime.MinValue : (DateTime)reader["DateStart"],
                     DateEnd = reader["DateEnd"] == DBNull.Value ? DateTime.MinValue : (DateTime)reader["DateEnd"],
                     Duration = reader["Duration"] == DBNull.Value ? 0 : (int)reader["Duration"],
-                    
                 });
             }
             return list;
@@ -70,6 +72,21 @@ namespace Common
             return result;
         }
 
+        public List<IEntity> GetJoinEntities(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntity GetJoinEntity(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override string ToString()
+        {
+            return Id + " " + Name;
+        }
 
     }
 }

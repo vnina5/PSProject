@@ -27,19 +27,21 @@ namespace Common
 
         public string TableName => "activity";
 
-        public object InsertColumn => "name, plannedduration, actualduration, points, status";
+        public object InsertColumn => "name, project, plannedduration, actualduration, points, status";
 
-        public string InsertValues => $"'{Name}', '{PlannedDuration}', '{ActualDuration}', '{Points}', '{Status}'";
+        public string InsertValues => $"'{Name}', '{Project.Id}', '{PlannedDuration}', '{ActualDuration}', '{Points}', '{Status}'";
 
-        public string UpdateValues => $"name = '{Name}', plannedduration = '{PlannedDuration}', points = '{Points}'";
+        public string UpdateValues => $"name = '{Name}', plannedduration = '{PlannedDuration}', actualduration = '{ActualDuration}', points = '{Points}', status = '{Status}'";
 
         public object PrimaryKey => "id";
 
         public object ForeignKey => "project";
 
+        public object ForeignKey2 => throw new NotImplementedException();
+
         public string Criteria => $"project = '{Project.Id}'";
 
-        public object ForeignKey2 => throw new NotImplementedException();
+        public string Search => $"status";
 
 
         public List<IEntity> GetEntities(SqlDataReader reader)
@@ -50,13 +52,43 @@ namespace Common
                 list.Add(new Activity
                 {
                     Id = (int)reader["Id"],
-                    //Project = (int)reader["Project"],
+                    Project = new Project
+                    {
+                        Id = (int)reader["Project"],
+                    },
                     Name = (string)reader["Name"],
                     //Description = (string)reader["Description"],
                     PlannedDuration = reader["PlannedDuration"] == DBNull.Value ? 0 : (int)reader["PlannedDuration"],
                     ActualDuration = reader["ActualDuration"] == DBNull.Value ? 0 : (int)reader["ActualDuration"],
                     Points = (int)reader["Points"],
-                    Status = (StatusActivity)reader["Status"]
+                    Status = (StatusActivity)Enum.Parse(typeof(StatusActivity), (string)reader["Status"]),
+                });
+            }
+            return list;
+        }
+
+        public List<IEntity> GetJoinEntities(SqlDataReader reader)
+        {
+            List<IEntity> list = new List<IEntity>();
+            while (reader.Read())
+            {
+                list.Add(new Activity
+                {
+                    Id = (int)reader[0],
+                    Project = new Project
+                    {
+                        Id = (int)reader[12],
+                        Name = (string)reader[13],
+                        Description = (string)reader[14],
+                        DateStart = reader[15] == DBNull.Value ? DateTime.MinValue : (DateTime)reader[15],
+                        DateEnd = reader[16] == DBNull.Value ? DateTime.MinValue : (DateTime)reader[16],
+                        Duration = reader[17] == DBNull.Value ? 0 : (int)reader[17],
+                    },
+                    Name = (string)reader[2],
+                    PlannedDuration = reader[3] == DBNull.Value ? 0 : (int)reader[3],
+                    ActualDuration = reader[4] == DBNull.Value ? 0 : (int)reader[4],
+                    Points = (int)reader[5],
+                    Status = (StatusActivity)Enum.Parse(typeof(StatusActivity), (string)reader[6]),
                 });
             }
             return list;
@@ -68,7 +100,10 @@ namespace Common
             while (reader.Read())
             {
                 result.Id = (int)reader["Id"];
-                //result.Project = (int)reader["Project"];
+                result.Project = new Project
+                {
+                    Id = (int)reader["Project"],
+                };
                 result.Name = (string)reader["Name"];
                 //result.Description = (string)reader["Description"];
                 result.PlannedDuration = reader["PlannedDuration"] == DBNull.Value ? 0 : (int)reader["PlannedDuration"];
@@ -78,5 +113,17 @@ namespace Common
             }
             return result;
         }
+
+        public IEntity GetJoinEntity(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }

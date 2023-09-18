@@ -10,17 +10,16 @@ namespace SystemOperations
 {
     public class GetSectorSysOp : SystemOperationBase
     {
-        private readonly Sector s;
+        private readonly int id;
         public Sector Result { get; set; }
-
-        public GetSectorSysOp(Sector s)
+        public GetSectorSysOp(int id)
         {
-            this.s = s;
+            this.id = id;
         }
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = (Sector)broker.Get(s);
+            Result = (Sector)broker.GetOne(new Sector(), id);
 
         }
     }

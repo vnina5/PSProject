@@ -61,12 +61,13 @@ namespace Client.GuiController
 
         internal void ShowMemberPanel()
         {
-            frmMain.ChangePanel(memberGuiController.CreateUCMember());
+            ChangePanel(memberGuiController.CreateUCMember(), frmMain.PnlMain);
+            frmMain.MembersToolStripMenuItem.BackColor = ToolStrip.;
         }
 
         internal void ShowProjectPanel()
         {
-            frmMain.ChangePanel(projectGuiController.CreateUCProjectView());
+            ChangePanel(projectGuiController.CreateUCProjectView(), frmMain.PnlMain);
         }
 
         internal void Logout()
@@ -79,6 +80,17 @@ namespace Client.GuiController
                 frmLogin.Visible = true;
             }
 
+        }
+
+        private void ChangePanel(UserControl uc, Panel pnl)
+        {
+            pnl.Controls.Clear();
+            pnl.Controls.Add(uc);
+            uc.Dock = DockStyle.Fill;
+            uc.AutoSize = true;
+            pnl.AutoSize = true;
+
+            uc.Width = pnl.Width;
         }
     }
 }

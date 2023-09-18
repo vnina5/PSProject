@@ -14,25 +14,75 @@ namespace Client.GuiController
 {
     public class MemberGuiController
     {
-        private UCMemberView ucMember;
-        private FrmMemberDetails frmMember;
+        private UCMemberView ucMemberView;
+        private FrmMemberAdd frmMemberAdd;
+
         private List<Member> members = new List<Member>();
 
         private Member selectedMember;
 
-        public MemberGuiController() { }
+        private OneMemberGuiController oneMemberGuiController;
 
-        public Control CreateUCMember()
+        public MemberGuiController() 
         {
-            ucMember = new UCMemberView();
+            oneMemberGuiController = new OneMemberGuiController();
+        }
+
+        public void ChangePanel(UserControl uc, Panel pnl)
+        {
+            pnl.Controls.Clear();
+            pnl.Controls.Add(uc);
+            uc.Dock = DockStyle.Fill;
+            uc.AutoSize = true;
+            pnl.AutoSize = true;
+            uc.Width = pnl.Width;
+        }
+
+        public UserControl CreateUCMember()
+        {
+            ucMemberView = new UCMemberView();
 
             InitDgvMembers();
 
-            ucMember.BtnAdd.Click += (s, a) => CreateFormMembar(FormMode.Add);
-            ucMember.BtnDetails.Click += (s, a) => CreateFormMembar(FormMode.Details);
-            ucMember.BtnUpdate.Click += (s, a) => CreateFormMembar(FormMode.Update);
+            ucMemberView.BtnAdd.Click += (s, a) => CreateFormMembar(FormMode.Add);
+            ucMemberView.BtnUpdate.Click += (s, a) => CreateFormMembar(FormMode.Update);
 
-            return ucMember;
+            ucMemberView.BtnDetails.Click += (s, a) =>
+            {
+                if (members.Count == 0)
+                {
+                    MessageBox.Show("Nothing to select!");
+                    return;
+                }
+
+                selectedMember = (Member)ucMemberView.DgvMembers.CurrentRow.DataBoundItem;
+                ChangePanel(oneMemberGuiController.CreateUCMemberDetails(selectedMember), ucMemberView.PnlMember);
+            };
+
+            ucMemberView.BtnSearch.Click += (s, a) =>
+            {
+                string criteria = ucMemberView.TxtSearch.Text;
+                InitDgvMembersSearch(criteria);
+            };
+
+            ucMemberView.BtnViewAll.Click += (s, a) => InitDgvMembers();
+
+            return ucMemberView;
+        }
+
+        private void InitDgvColumns(DataGridView dgv)
+        {
+            dgv.Columns["TableName"].Visible = false;
+            dgv.Columns["InsertColumn"].Visible = false;
+            dgv.Columns["InsertValues"].Visible = false;
+            dgv.Columns["UpdateValues"].Visible = false;
+            dgv.Columns["PrimaryKey"].Visible = false;
+            dgv.Columns["ForeignKey"].Visible = false;
+            dgv.Columns["ForeignKey2"].Visible = false;
+            dgv.Columns["Criteria"].Visible = false;
+            dgv.Columns["Search"].Visible = false;
+
+            dgv.AutoSize = true;
         }
 
         private void InitDgvMembers()
@@ -40,20 +90,33 @@ namespace Client.GuiController
             try
             {
                 members = Communication.Instance.GetAllMembers();
-                ucMember.DgvMembers.DataSource = members;
+                ucMemberView.DgvMembers.DataSource = members;
 
-                ucMember.DgvMembers.Columns["TableName"].Visible = false;
-                ucMember.DgvMembers.Columns["InsertColumn"].Visible = false;
-                ucMember.DgvMembers.Columns["InsertValues"].Visible = false;
-                ucMember.DgvMembers.Columns["UpdateValues"].Visible = false;
-                ucMember.DgvMembers.Columns["PrimaryKey"].Visible = false;
-                ucMember.DgvMembers.Columns["ForeignKey"].Visible = false;
-                ucMember.DgvMembers.Columns["ForeignKey2"].Visible = false;
-                ucMember.DgvMembers.Columns["Criteria"].Visible = false;
+                InitDgvColumns(ucMemberView.DgvMembers);
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-                ucMember.AutoSize = true;
-                ucMember.DgvMembers.AutoSize = true;
+        private void InitDgvMembersSearch(string criteria)
+        {
+            try
+            {
+                members = Communication.Instance.GetMembersSearch(criteria);
+                if (members.Count == 0)
+                {
+                    MessageBox.Show("There is not member with this lastname!");
+                }
 
+                ucMemberView.DgvMembers.DataSource = members;
+                InitDgvColumns(ucMemberView.DgvMembers);
             }
             catch (SocketException ex)
             {
@@ -68,12 +131,11 @@ namespace Client.GuiController
 
         private void CreateFormMembar(FormMode formMode)
         {
-            frmMember = new FrmMemberDetails();
+            frmMemberAdd = new FrmMemberAdd();
 
             try
             {
-                frmMember.CmbYearOfStudy.DataSource = Enum.GetValues(typeof(Year));
-                frmMember.CmbSector.DataSource = Communication.Instance.GetAllSectors();
+                frmMemberAdd.CmbSector.DataSource = Communication.Instance.GetAllSectors();
             }
             catch (SocketException ex)
             {
@@ -85,56 +147,40 @@ namespace Client.GuiController
                 MessageBox.Show(ex.Message);
             }
 
-            if (members.Count == 0)
-            {
-                selectedMember = null;
-            }
-            else
-            {
-                selectedMember = (Member)ucMember.DgvMembers.CurrentRow.DataBoundItem;
-            }
-
-            if (formMode != FormMode.Add)
-            { 
-                if (selectedMember != null)
-                {
-                    frmMember.TxtFirstname.Text = selectedMember.FirstName;
-                    frmMember.TxtLastname.Text = selectedMember.LastName;
-                    frmMember.TxtEmail.Text = selectedMember.Email;
-                    //frmMember.DtpDateOfBirth.Value = selectedMember.DateOfBirth;
-                    frmMember.CmbYearOfStudy.Text = selectedMember.YearOfStudy.ToString();
-                    frmMember.CmbSector.Text = selectedMember.Sector.ToString();
-                }
-                else
-                {
-                    MessageBox.Show("Nothing is selected!");
-                    return;
-                }
-
-            }
+            frmMemberAdd.CmbYearOfStudy.DataSource = Enum.GetValues(typeof(Year));
 
             switch (formMode)
             {
                 case FormMode.Add:
-                    frmMember.BtnSave.Text = "Add";
-                    frmMember.BtnSave.Click += AddMember;
-                    break;
-
-                case FormMode.Details:
-                    frmMember.BtnSave.Text = "Ok";
-                    frmMember.BtnSave.Click += OkMember;
+                    frmMemberAdd.BtnSave.Text = "Add";
+                    frmMemberAdd.BtnSave.Click += AddMember;
                     break;
 
                 case FormMode.Update:
-                    frmMember.BtnSave.Text = "Update";
-                    frmMember.BtnSave.Click += UpdateMember;
+                    if (members.Count == 0)
+                    {
+                        MessageBox.Show("Nothing to select!");
+                        return;
+                    }
+
+                    selectedMember = (Member)ucMemberView.DgvMembers.CurrentRow.DataBoundItem;
+
+                    frmMemberAdd.TxtFirstname.Text = selectedMember.FirstName;
+                    frmMemberAdd.TxtLastname.Text = selectedMember.LastName;
+                    frmMemberAdd.TxtEmail.Text = selectedMember.Email;
+                    //frmMember.DtpDateOfBirth.Value = selectedMember.DateOfBirth;
+                    frmMemberAdd.CmbYearOfStudy.Text = selectedMember.YearOfStudy.ToString();
+                    frmMemberAdd.CmbSector.Text = selectedMember.Sector.ToString();
+
+                    frmMemberAdd.BtnSave.Text = "Update";
+                    frmMemberAdd.BtnSave.Click += UpdateMember;
                     break;
 
                 default:
                     break;
             }
 
-            frmMember.ShowDialog();
+            frmMemberAdd.ShowDialog();
             InitDgvMembers();
 
         }
@@ -143,19 +189,19 @@ namespace Client.GuiController
         {
             Member member = new Member
             {
-                FirstName = frmMember.TxtFirstname.Text,
-                LastName = frmMember.TxtLastname.Text,
-                Email = frmMember.TxtEmail.Text,
+                FirstName = frmMemberAdd.TxtFirstname.Text,
+                LastName = frmMemberAdd.TxtLastname.Text,
+                Email = frmMemberAdd.TxtEmail.Text,
                 //DateOfBirth = frmMember.DtpDateOfBirth.Value,
-                YearOfStudy = (Year)frmMember.CmbYearOfStudy.SelectedItem,
-                Sector = (Sector)frmMember.CmbSector.SelectedItem,
+                YearOfStudy = (Year)frmMemberAdd.CmbYearOfStudy.SelectedItem,
+                Sector = (Sector)frmMemberAdd.CmbSector.SelectedItem,
             };
 
             try
             {
                 Communication.Instance.AddMember(member);
                 MessageBox.Show("Success!");
-                frmMember.Close();
+                frmMemberAdd.Close();
                 members.Add(member);
             }
             catch (SocketException ex)
@@ -165,24 +211,24 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
         private void UpdateMember(object sender, EventArgs e)
         {
-            selectedMember.FirstName = frmMember.TxtFirstname.Text;
-            selectedMember.LastName = frmMember.TxtLastname.Text;
-            selectedMember.Email = frmMember.TxtEmail.Text;
+            selectedMember.FirstName = frmMemberAdd.TxtFirstname.Text;
+            selectedMember.LastName = frmMemberAdd.TxtLastname.Text;
+            selectedMember.Email = frmMemberAdd.TxtEmail.Text;
             //selectedMember.DateOfBirth = frmMember.DtpDateOfBirth.Value;
-            selectedMember.YearOfStudy = (Year)frmMember.CmbYearOfStudy.SelectedItem;
-            selectedMember.Sector = (Sector)frmMember.CmbSector.SelectedItem;
+            selectedMember.YearOfStudy = (Year)frmMemberAdd.CmbYearOfStudy.SelectedItem;
+            selectedMember.Sector = (Sector)frmMemberAdd.CmbSector.SelectedItem;
 
             try
             {
                 Communication.Instance.UpdateMember(selectedMember);
                 MessageBox.Show("Success!");
-                frmMember.Close();
+                frmMemberAdd.Close();
             }
             catch (SocketException ex)
             {
@@ -191,14 +237,14 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
-        private void OkMember(object sender, EventArgs e)
-        {
-            frmMember.Close();
-        }
+        //private void OkMember(object sender, EventArgs e)
+        //{
+        //    frmMemberAdd.Close();
+        //}
 
     }
 }

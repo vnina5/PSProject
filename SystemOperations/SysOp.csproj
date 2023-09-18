@@ -41,17 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddActivitySysOp.cs" />
+    <Compile Include="AssignMemberActivitySysOp.cs" />
     <Compile Include="AddMemberSysOp.cs" />
     <Compile Include="AddProjectSysOp.cs" />
+    <Compile Include="CompletMemberActivitySysOp.cs" />
+    <Compile Include="FilterActivitiesOfProjectSysOp.cs" />
+    <Compile Include="GetActivitiesOfProjectSysOp.cs" />
+    <Compile Include="GetActivityMembersSysOp.cs" />
     <Compile Include="GetAllMembersSysOp.cs" />
     <Compile Include="GetAllProjectsSysOp.cs" />
     <Compile Include="GetAllSectorsSysOp.cs" />
+    <Compile Include="GetMemberActivitiesSysOp.cs" />
+    <Compile Include="SearchMembersSysOp.cs" />
     <Compile Include="GetMemberSysOp.cs" />
+    <Compile Include="SearchProjectsSysOp.cs" />
     <Compile Include="GetSectorSysOp.cs" />
     <Compile Include="LoginSysOp.cs" />
     <Compile Include="SystemOperationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateActivitySysOp.cs" />
     <Compile Include="UpdateMemberSysOp.cs" />
+    <Compile Include="UpdateProjectSysOp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Broker\Broker.csproj">

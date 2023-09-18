@@ -2,22 +2,25 @@
 using SysOp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SystemOperations
 {
-    public class GetAllProjectsSysOp : SystemOperationBase
+    public class UpdateProjectSysOp : SystemOperationBase
     {
-        public List<Project> Result { get; set; }
-        //public List<Activity> Act { get; set; }
+        private readonly Project p;
+        public UpdateProjectSysOp(Project p)
+        {
+            this.p = p;
+        }
 
         protected override void ExecuteConcreteOperation()
         {
-            Result = broker.GetAll(new Project()).OfType<Project>().ToList();
-
+            broker.Update(p, p.Id);
+            //update activity
+            //...
         }
     }
 }

@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Client.UserControls
 {
-    public partial class UCActivityAdd : UserControl
+    public partial class UCMemberDetails : UserControl
     {
-        public UCActivityAdd()
+        public UCMemberDetails()
         {
             InitializeComponent();
         }
 
-        private void UCActivityAdd_Load(object sender, EventArgs e)
+        private void UCMemberDetails_Load(object sender, EventArgs e)
         {
 
         }
