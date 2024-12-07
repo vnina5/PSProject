@@ -16,7 +16,7 @@ namespace Client.GuiController
     public class OneActivityGuiController
     {
         private Activity activity;
-        private Member member = new Member();
+        //private Member member = new Member();
         //private MemberActivity memberActivity;
 
         private List<MemberActivity> assignedMembers = new List<MemberActivity>();
@@ -42,9 +42,7 @@ namespace Client.GuiController
             ucActivityDetails.TxtPoints.Text = selectedActivity.Points.ToString();
             ucActivityDetails.TxtStatus.Text = selectedActivity.Status.ToString();
 
-            HandleActivityStatus();
-
-            
+            HandleActivityStatus();     
 
             return ucActivityDetails;
         }
@@ -55,7 +53,7 @@ namespace Client.GuiController
             {
                 case StatusActivity.Unassigned:
                     ucActivityDetails.LblMember.Visible = false;
-                    ucActivityDetails.TxtMember.Visible = false;
+                    //ucActivityDetails.TxtMember.Visible = false;
                     ucActivityDetails.DgvAssignedMembers.Visible = false;
                     ucActivityDetails.BtnMA.Text = "Assign activity";
                     ucActivityDetails.BtnMA.Click += AssignActivity;
@@ -85,7 +83,6 @@ namespace Client.GuiController
         {
             try
             {
-                //memberActivity = Communication.Instance.GetActivityMembers(activity);
                 assignedMembers = Communication.Instance.GetActivityMembers(activity);
 
                 List<Member> listMembers = new List<Member>();
@@ -194,7 +191,7 @@ namespace Client.GuiController
         private void CompletActivity(object sender, EventArgs e)
         {
 
-            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Complet activity", MessageBoxButtons.OKCancel);
+            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Warning", MessageBoxButtons.OKCancel);
             if (dialogResult != DialogResult.OK)
             {
                 return;
@@ -204,7 +201,7 @@ namespace Client.GuiController
             foreach (MemberActivity ma in assignedMembers)
             {
                 ma.Activity = activity;
-                ma.Member = member;
+                //ma.Member = member;
                 ma.Member.Points += activity.Points;
             }
 
@@ -242,8 +239,11 @@ namespace Client.GuiController
             //dgv.Columns["NumOfActivities"].Visible = false;
             dgv.Columns["YearOfStudy"].Visible = false;
             dgv.Columns["HoursOfWork"].Visible = false;
-            dgv.Columns["Points"].Visible = false;
+            //dgv.Columns["Points"].Visible = false;
             dgv.Columns["Password"].Visible = false;
+            //dgv.Columns["Sector"].Visible = false;
+
+            dgv.Columns["Id"].Visible = false;
 
             //dgv.AutoSize = true;
         }
@@ -275,7 +275,7 @@ namespace Client.GuiController
                 allMembers = Communication.Instance.GetMembersSearch(criteria);
                 if (allMembers.Count == 0)
                 {
-                    MessageBox.Show("There is not member with this lastname!");
+                    MessageBox.Show("There is no member with this lastname!");
                 }
 
                 frmMembersAll.DgvMembers.DataSource = allMembers;

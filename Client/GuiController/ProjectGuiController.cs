@@ -4,6 +4,7 @@ using Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
@@ -42,6 +43,8 @@ namespace Client.GuiController
             dgv.Columns["Criteria"].Visible = false;
             dgv.Columns["Search"].Visible = false;
 
+            dgv.Columns["Id"].Visible = false;
+
             dgv.AutoSize = true;
         }
 
@@ -61,7 +64,7 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
@@ -72,7 +75,7 @@ namespace Client.GuiController
                 projects = Communication.Instance.GetProjectsSearch(criteria);
                 if (projects.Count == 0)
                 {
-                    MessageBox.Show("There is not project with this name!");
+                    MessageBox.Show("There is no project with this name!");
                 }
 
                 ucProjectView.DgvProjects.DataSource = projects;
@@ -85,30 +88,30 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
-        private BindingList<Activity> InitDgvActivities()
-        {
-            BindingList<Activity> a = new BindingList<Activity>();
-            try
-            {
-                a = Communication.Instance.GetActivitiesOfProject(selectedProject.Id);
+        //private BindingList<Activity> InitDgvActivities()
+        //{
+        //    BindingList<Activity> a = new BindingList<Activity>();
+        //    try
+        //    {
+        //        a = Communication.Instance.GetActivitiesOfProject(selectedProject.Id);
  
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show(ex.Message);
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        //    }
+        //    catch (SocketException ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        Application.Exit();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
 
-            return a;
-        }
+        //    return a;
+        //}
 
         public void ChangePanel(UserControl uc, Panel pnl)
         {
@@ -123,13 +126,9 @@ namespace Client.GuiController
         public UserControl CreateUCProjectView()
         {
             ucProjectView = new UCProjectView();
-
             InitDgvProjects();
-
             ucProjectView.BtnAdd.Click += (s, a) => CreateFormProject(FormMode.Add);
             ucProjectView.BtnUpdate.Click += (s, a) => CreateFormProject(FormMode.Update);
-
-
             ucProjectView.BtnDetails.Click += (s, a) =>
             {
                 if (projects.Count == 0)
@@ -137,19 +136,15 @@ namespace Client.GuiController
                     MessageBox.Show("Nothing to select!");
                     return;
                 }
-
                 selectedProject = (Project)ucProjectView.DgvProjects.CurrentRow.DataBoundItem;
                 ChangePanel(oneProjectGuiController.CreateUCProjectDetails(selectedProject), ucProjectView.PnlProject);
             };
-
             ucProjectView.BtnSearch.Click += (s, a) =>
             {
                 string criteria = ucProjectView.TxtSearch.Text;
                 InitDgvProjectsSearch(criteria);
             };
-
             ucProjectView.BtnViewAll.Click += (s, a) => InitDgvProjects();
-
             return ucProjectView;
         }
 
@@ -219,13 +214,48 @@ namespace Client.GuiController
 
             frmProjectAdd.BtnAddActivity.Click += (s, a) =>
             {
-                Activity activity = new Activity
+                if (string.IsNullOrEmpty(frmProjectAdd.TxtNameActivity.Text) || string.IsNullOrEmpty(frmProjectAdd.TxtDuration.Text) || string.IsNullOrEmpty(frmProjectAdd.TxtPoints.Text))
                 {
-                    Name = frmProjectAdd.TxtNameActivity.Text,
-                    //Description = frmProjectAdd.TxtDescription.Text,
-                    PlannedDuration = Int32.Parse(frmProjectAdd.TxtDuration.Text),
-                    Points = Int32.Parse(frmProjectAdd.TxtPoints.Text),
-                };
+                    if (string.IsNullOrEmpty(frmProjectAdd.TxtNameActivity.Text))
+                    {
+                        frmProjectAdd.TxtNameActivity.BackColor = Color.Salmon;
+                    }
+                    if (string.IsNullOrEmpty(frmProjectAdd.TxtDuration.Text))
+                    {
+                        frmProjectAdd.TxtDuration.BackColor = Color.Salmon;
+                    }
+                    if (string.IsNullOrEmpty(frmProjectAdd.TxtPoints.Text))
+                    {
+                        frmProjectAdd.TxtPoints.BackColor = Color.Salmon;
+                    }
+
+                    MessageBox.Show("Some field is empthy!");
+                    return;
+                }
+
+                Activity activity = new Activity();
+
+                activity.Name = frmProjectAdd.TxtNameActivity.Text;
+                
+                try
+                {
+                    activity.PlannedDuration = Int32.Parse(frmProjectAdd.TxtDuration.Text);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Duration must be number!");
+                    return;
+                }
+
+                try
+                {
+                    activity.Points = Int32.Parse(frmProjectAdd.TxtPoints.Text);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Points must be number!");
+                    return;
+                }
 
                 if (update)
                 {
@@ -279,6 +309,10 @@ namespace Client.GuiController
             frmProjectAdd.TxtNameActivity.Clear();
             frmProjectAdd.TxtDuration.Clear();
             frmProjectAdd.TxtPoints.Clear();
+
+            frmProjectAdd.TxtNameActivity.BackColor = Color.White;
+            frmProjectAdd.TxtDuration.BackColor = Color.White;
+            frmProjectAdd.TxtPoints.BackColor = Color.White;
         }
 
 
@@ -293,10 +327,37 @@ namespace Client.GuiController
                 ActivityList = activityList,
             };
 
+            if (string.IsNullOrEmpty(project.Name) || string.IsNullOrEmpty(project.Description))
+            {
+                if (string.IsNullOrEmpty(project.Name))
+                {
+                    frmProjectAdd.TxtName.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(project.Description))
+                {
+                    frmProjectAdd.TxtDescription.BackColor = Color.Salmon;
+                }
+
+                MessageBox.Show("Some field is empthy!");
+                return;
+            }
+
+            if (project.ActivityList.Count == 0)
+            {
+                MessageBox.Show("There are no activities!");
+                return;
+            }
+
+            if (project.DateEnd < project.DateStart)
+            {
+                MessageBox.Show("Date of end must be after date of start!");
+                return;
+            }
+
             try
             {
                 Communication.Instance.AddProject(project);
-                MessageBox.Show("Success!");
+                MessageBox.Show("Project is successful added!");
                 frmProjectAdd.Close();
             }
             catch (SocketException ex)
@@ -306,7 +367,7 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
@@ -318,10 +379,37 @@ namespace Client.GuiController
             selectedProject.DateEnd = frmProjectAdd.DtpDateOfEnd.Value;
             //selectedProject.ActivityList = activityList;
 
+            if (string.IsNullOrEmpty(selectedProject.Name) || string.IsNullOrEmpty(selectedProject.Description))
+            {
+                if (string.IsNullOrEmpty(selectedProject.Name))
+                {
+                    frmProjectAdd.TxtName.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(selectedProject.Description))
+                {
+                    frmProjectAdd.TxtDescription.BackColor = Color.Salmon;
+                }
+
+                MessageBox.Show("Some field is empthy!");
+                return;
+            }
+
+            //if (selectedProject.ActivityList.Count == 0)
+            //{
+            //    MessageBox.Show("There are no activities!");
+            //    return;
+            //}
+
+            if (selectedProject.DateEnd < selectedProject.DateStart)
+            {
+                MessageBox.Show("Date of end must be after date of start!");
+                return;
+            }
+
             try
             {
                 Communication.Instance.UpdateProject(selectedProject);
-                MessageBox.Show("Success!");
+                MessageBox.Show("Project is successful updated!");
                 frmProjectAdd.Close();
             }
             catch (SocketException ex)
@@ -331,14 +419,14 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong \n" + ex.Message);
             }
         }
 
-        private void OkProject(object sender, EventArgs e)
-        {
-            frmProjectAdd.Close();
-        }
+        //private void OkProject(object sender, EventArgs e)
+        //{
+        //    frmProjectAdd.Close();
+        //}
 
 
     }

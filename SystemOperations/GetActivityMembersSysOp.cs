@@ -19,7 +19,7 @@ namespace SystemOperations
         }
         protected override void ExecuteConcreteOperation()
         {
-            Result = broker.GetOneJoin(new Member(), new MemberActivity(), a.Id).OfType<MemberActivity>().ToList();
+            Result = broker.GetOneJoin(new Member(), new MemberActivity(), new Sector(), a.Id).OfType<MemberActivity>().ToList();
         }
     }
 }

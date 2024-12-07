@@ -19,8 +19,6 @@ namespace SystemOperations
         protected override void ExecuteConcreteOperation()
         {
             broker.Update(p, p.Id);
-            //update activity
-            //...
         }
     }
 }

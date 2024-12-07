@@ -116,8 +116,8 @@ namespace Common
                     Points = reader[8] == DBNull.Value ? 0 : (int)reader[8],
                     Sector = new Sector
                     {
-                        Id = (int)reader[9],
-                        //Name = reader[14].ToString(),
+                        Id = (int)reader[15],
+                        Name = reader[16].ToString(),
                     }
                 });
             }

@@ -50,6 +50,7 @@ namespace Client
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(976, 391);
             this.pnlMain.TabIndex = 0;
+            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // msMain
             // 

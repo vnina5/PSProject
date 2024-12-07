@@ -57,7 +57,7 @@ namespace Common
                         Sector = new Sector
                         {
                             Id = (int)reader[9],
-                            //Name = reader[14].ToString(),
+                            Name = reader[16].ToString(),
                         }
                     },
                     DateAssigned = reader[13] == DBNull.Value ? DateTime.MinValue : (DateTime)reader[13],

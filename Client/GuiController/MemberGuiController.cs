@@ -4,11 +4,13 @@ using Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Client.GuiController
 {
@@ -82,6 +84,8 @@ namespace Client.GuiController
             dgv.Columns["Criteria"].Visible = false;
             dgv.Columns["Search"].Visible = false;
 
+            dgv.Columns["Id"].Visible = false;
+
             dgv.AutoSize = true;
         }
 
@@ -112,7 +116,7 @@ namespace Client.GuiController
                 members = Communication.Instance.GetMembersSearch(criteria);
                 if (members.Count == 0)
                 {
-                    MessageBox.Show("There is not member with this lastname!");
+                    MessageBox.Show("There is no member with this lastname!");
                 }
 
                 ucMemberView.DgvMembers.DataSource = members;
@@ -192,15 +196,33 @@ namespace Client.GuiController
                 FirstName = frmMemberAdd.TxtFirstname.Text,
                 LastName = frmMemberAdd.TxtLastname.Text,
                 Email = frmMemberAdd.TxtEmail.Text,
-                //DateOfBirth = frmMember.DtpDateOfBirth.Value,
                 YearOfStudy = (Year)frmMemberAdd.CmbYearOfStudy.SelectedItem,
                 Sector = (Sector)frmMemberAdd.CmbSector.SelectedItem,
             };
 
+            if (string.IsNullOrEmpty(member.FirstName) || string.IsNullOrEmpty(member.LastName) || string.IsNullOrEmpty(member.Email))
+            {
+                if (string.IsNullOrEmpty(member.FirstName))
+                {
+                    frmMemberAdd.TxtFirstname.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(member.LastName))
+                {
+                    frmMemberAdd.TxtLastname.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(member.Email))
+                {
+                    frmMemberAdd.TxtEmail.BackColor = Color.Salmon;
+                }
+
+                MessageBox.Show("Some field is empthy!");
+                return;
+            }
+
             try
             {
                 Communication.Instance.AddMember(member);
-                MessageBox.Show("Success!");
+                MessageBox.Show("Member successfully added!");
                 frmMemberAdd.Close();
                 members.Add(member);
             }
@@ -211,7 +233,7 @@ namespace Client.GuiController
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong \n" + ex.Message);
+                MessageBox.Show("Something went wrong! \n" + ex.Message);
             }
         }
 
@@ -220,14 +242,33 @@ namespace Client.GuiController
             selectedMember.FirstName = frmMemberAdd.TxtFirstname.Text;
             selectedMember.LastName = frmMemberAdd.TxtLastname.Text;
             selectedMember.Email = frmMemberAdd.TxtEmail.Text;
-            //selectedMember.DateOfBirth = frmMember.DtpDateOfBirth.Value;
             selectedMember.YearOfStudy = (Year)frmMemberAdd.CmbYearOfStudy.SelectedItem;
             selectedMember.Sector = (Sector)frmMemberAdd.CmbSector.SelectedItem;
+
+
+            if (string.IsNullOrEmpty(selectedMember.FirstName) || string.IsNullOrEmpty(selectedMember.LastName) || string.IsNullOrEmpty(selectedMember.Email))
+            {
+                if (string.IsNullOrEmpty(selectedMember.FirstName))
+                {
+                    frmMemberAdd.TxtFirstname.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(selectedMember.LastName))
+                {
+                    frmMemberAdd.TxtLastname.BackColor = Color.Salmon;
+                }
+                if (string.IsNullOrEmpty(selectedMember.Email))
+                {
+                    frmMemberAdd.TxtEmail.BackColor = Color.Salmon;
+                }
+
+                MessageBox.Show("Some field is empthy!");
+                return;
+            }
 
             try
             {
                 Communication.Instance.UpdateMember(selectedMember);
-                MessageBox.Show("Success!");
+                MessageBox.Show("Member successfully updated!");
                 frmMemberAdd.Close();
             }
             catch (SocketException ex)
@@ -241,10 +282,6 @@ namespace Client.GuiController
             }
         }
 
-        //private void OkMember(object sender, EventArgs e)
-        //{
-        //    frmMemberAdd.Close();
-        //}
 
     }
 }

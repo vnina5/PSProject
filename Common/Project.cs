@@ -18,7 +18,6 @@ namespace Common
         public DateTime DateEnd { get; set; }
         public int Duration { get; set; } = 0;
         public BindingList<Activity> ActivityList { get; set; } = new BindingList<Activity>();
-        //public List<Activity> ActivityList { get; set; } = new List<Activity>();
 
         public string TableName => "project";
 
@@ -85,8 +84,9 @@ namespace Common
 
         public override string ToString()
         {
-            return Id + " " + Name;
+            return Name;
         }
+
 
     }
 }

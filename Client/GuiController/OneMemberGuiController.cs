@@ -69,6 +69,8 @@ namespace Client.GuiController
             //dgv.Columns[8].Visible = false;
             //dgv.Columns[9].Visible = false;
 
+            dgv.Columns["Id"].Visible = false;
+
             dgv.AutoSize = true;
         }
 

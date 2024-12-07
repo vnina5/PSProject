@@ -44,7 +44,6 @@ namespace Client.UserControls
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnMA = new System.Windows.Forms.Button();
-            this.txtMember = new System.Windows.Forms.TextBox();
             this.lblMember = new System.Windows.Forms.Label();
             this.dgvAssignedMembers = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssignedMembers)).BeginInit();
@@ -167,21 +166,14 @@ namespace Client.UserControls
             this.btnMA.Text = "MA";
             this.btnMA.UseVisualStyleBackColor = true;
             // 
-            // txtMember
-            // 
-            this.txtMember.Location = new System.Drawing.Point(185, 232);
-            this.txtMember.Name = "txtMember";
-            this.txtMember.Size = new System.Drawing.Size(222, 22);
-            this.txtMember.TabIndex = 76;
-            // 
             // lblMember
             // 
             this.lblMember.AutoSize = true;
             this.lblMember.Location = new System.Drawing.Point(58, 235);
             this.lblMember.Name = "lblMember";
-            this.lblMember.Size = new System.Drawing.Size(117, 16);
+            this.lblMember.Size = new System.Drawing.Size(124, 16);
             this.lblMember.TabIndex = 77;
-            this.lblMember.Text = "Assigned member";
+            this.lblMember.Text = "Assigned members";
             // 
             // dgvAssignedMembers
             // 
@@ -199,7 +191,6 @@ namespace Client.UserControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvAssignedMembers);
             this.Controls.Add(this.lblMember);
-            this.Controls.Add(this.txtMember);
             this.Controls.Add(this.btnMA);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtStatus);
@@ -240,7 +231,6 @@ namespace Client.UserControls
         private TextBox txtActualDuration;
         private TextBox txtStatus;
         private Button btnMA;
-        private TextBox txtMember;
         private DataGridView dgvAssignedMembers;
 
         public TextBox TxtPoints { get => txtPoints; set => txtPoints = value; }
@@ -249,7 +239,7 @@ namespace Client.UserControls
         public TextBox TxtActualDuration { get => txtActualDuration; set => txtActualDuration = value; }
         public TextBox TxtStatus { get => txtStatus; set => txtStatus = value; }
         public Button BtnMA { get => btnMA; set => btnMA = value; }
-        public TextBox TxtMember { get => txtMember; set => txtMember = value; }
+        //public TextBox TxtMember { get => txtMember; set => txtMember = value; }
         public Label LblMember { get => lblMember; set => lblMember = value; }
         public DataGridView DgvAssignedMembers { get => dgvAssignedMembers; set => dgvAssignedMembers = value; }
     }

@@ -33,7 +33,6 @@ namespace Server
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

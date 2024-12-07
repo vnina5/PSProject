@@ -118,11 +118,11 @@ namespace Broker
             return result;
         }
 
-        public List<IEntity> GetOneJoin(IEntity entity, IEntity joinEntity, object criteria)
+        public List<IEntity> GetOneJoin(IEntity entity, IEntity joinEntity, IEntity joinEntity2, object criteria)
         {
             List<IEntity> result;
             SqlCommand cmd = DbBroker.Instance.GetConnection().GetCommand();
-            cmd.CommandText = $"select * from {entity.TableName} a join {joinEntity.TableName} b on (a.{entity.PrimaryKey} = b.{joinEntity.ForeignKey2}) where b.{joinEntity.ForeignKey} = {criteria}";
+            cmd.CommandText = $"select * from {entity.TableName} a join {joinEntity.TableName} b on (a.{entity.PrimaryKey} = b.{joinEntity.ForeignKey2}) join {joinEntity2.TableName} c on (a.{entity.ForeignKey} = c.{joinEntity2.PrimaryKey}) where b.{joinEntity.ForeignKey} = {criteria}";
             SqlDataReader reader = cmd.ExecuteReader();
             result = joinEntity.GetEntities(reader);
             reader.Close();

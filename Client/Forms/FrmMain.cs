@@ -19,7 +19,6 @@ namespace Client
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            //pnlMain.Controls.Add(new UCMembersView());
             membersToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowMemberPanel();
             projectsToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.ShowProjectPanel();
             logOutToolStripMenuItem.Click += (s, a) => MainGuiController.Instance.Logout();
@@ -38,6 +37,11 @@ namespace Client
         }
 
         private void membersToolStripMenuItem_DisplayStyleChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
 
         }

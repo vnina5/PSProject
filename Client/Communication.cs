@@ -26,10 +26,7 @@ namespace Client
             }
         }
 
-        private Communication()
-        {
-
-        }
+        private Communication() { }
 
         public void Connect()
         {
@@ -291,18 +288,5 @@ namespace Client
         }
 
 
-        //internal Sector GetSector(int sectorId)
-        //{
-        //    Request request = new Request();
-        //    request.Operation = Operation.GetAllSectors;
-        //    sender.Send(request);
-
-        //    Response response = receiver.Receive<Response>();
-        //    if (response.Exception != null)
-        //    {
-        //        throw response.Exception;
-        //    }
-        //    return (Sector)response.Result;
-        //}
     }
 }

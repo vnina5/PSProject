@@ -58,7 +58,7 @@ namespace Client.Forms
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(346, 530);
+            this.btnSave.Location = new System.Drawing.Point(298, 325);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(110, 30);
             this.btnSave.TabIndex = 27;
@@ -131,7 +131,7 @@ namespace Client.Forms
             this.dgvActivities.Name = "dgvActivities";
             this.dgvActivities.RowHeadersWidth = 51;
             this.dgvActivities.RowTemplate.Height = 24;
-            this.dgvActivities.Size = new System.Drawing.Size(475, 195);
+            this.dgvActivities.Size = new System.Drawing.Size(0, 195);
             this.dgvActivities.TabIndex = 20;
             // 
             // btnDeleteActivity

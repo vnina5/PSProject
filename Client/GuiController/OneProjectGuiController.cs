@@ -3,6 +3,7 @@ using Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -60,7 +61,28 @@ namespace Client.GuiController
             };
 
 
+            HandleProgressOfProject();
+
+
             return ucProjectDetails;
+        }
+
+        private void HandleProgressOfProject()
+        {
+            ucProjectDetails.PbProject.Visible = true;
+            ucProjectDetails.PbProject.Minimum = 0;
+            ucProjectDetails.PbProject.Maximum = activities.Count;
+            ucProjectDetails.PbProject.Value = 0;
+            ucProjectDetails.PbProject.Step = 1;
+
+            foreach (Activity a in activities)
+            {
+                if (a.Status == StatusActivity.Completed)
+                {
+                    ucProjectDetails.PbProject.PerformStep();
+                }
+            }
+            
         }
 
         private void InitDgvActivitiesFilter(StatusActivity status)
@@ -70,7 +92,7 @@ namespace Client.GuiController
                 activities = Communication.Instance.GetFilterActivitiesOfProject(status, project.Id);
                 if (activities.Count == 0)
                 {
-                    MessageBox.Show($"There is not {status} activities!");
+                    MessageBox.Show($"There is no {status} activities!");
                 }
 
                 ucProjectDetails.DgvActivities.DataSource = activities;
@@ -122,6 +144,8 @@ namespace Client.GuiController
             dgv.Columns["Project"].Visible = false;
             dgv.Columns["PlannedDuration"].Visible = false;
             dgv.Columns["ActualDuration"].Visible = false;
+
+            dgv.Columns["Id"].Visible = false;
 
             dgv.AutoSize = true;
         }

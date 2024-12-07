@@ -26,7 +26,7 @@ namespace Broker
         TEntity GetOne(TEntity entity, object id);
 
         List<TEntity> GetAllJoin(IEntity entity, IEntity joinEntity);
-        List<IEntity> GetOneJoin(IEntity entity, IEntity joinEntity, object criteria);
+        List<IEntity> GetOneJoin(IEntity entity, IEntity joinEntity, IEntity joinEntity2, object criteria);
         List<IEntity> GetTwoJoin(IEntity entity, IEntity joinEntity, IEntity joinEntity2, object criteria);
 
         object GetMaxId(TEntity entity);

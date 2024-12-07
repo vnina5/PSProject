@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,16 +36,6 @@ namespace Client.GuiController
             projectGuiController = new ProjectGuiController();
         }
 
-        internal void ShowFrmLogin(FrmLogin frmLogin)
-        {
-            //Communication.Instance.Connect();
-
-            //frmLogin = new FrmLogin();
-
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(frmLogin);
-        }
 
         internal void ShowFrmMain(FrmLogin frmLogin)
         {
@@ -62,12 +53,15 @@ namespace Client.GuiController
         internal void ShowMemberPanel()
         {
             ChangePanel(memberGuiController.CreateUCMember(), frmMain.PnlMain);
-            frmMain.MembersToolStripMenuItem.BackColor = ToolStrip.;
+            frmMain.MembersToolStripMenuItem.BackColor = Color.LightSteelBlue;
+            frmMain.ProjectsToolStripMenuItem.BackColor = Color.Transparent;
         }
 
         internal void ShowProjectPanel()
         {
             ChangePanel(projectGuiController.CreateUCProjectView(), frmMain.PnlMain);
+            frmMain.ProjectsToolStripMenuItem.BackColor = Color.LightSteelBlue;
+            frmMain.MembersToolStripMenuItem.BackColor = Color.Transparent;
         }
 
         internal void Logout()
@@ -92,5 +86,7 @@ namespace Client.GuiController
 
             uc.Width = pnl.Width;
         }
+
+
     }
 }

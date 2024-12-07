@@ -49,6 +49,7 @@ namespace Client.UserControls
             this.btnViewAllActivities = new System.Windows.Forms.Button();
             this.cmbFilterActivity = new System.Windows.Forms.ComboBox();
             this.btnFilterActivity = new System.Windows.Forms.Button();
+            this.pbProject = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActivities)).BeginInit();
             this.SuspendLayout();
             // 
@@ -213,10 +214,19 @@ namespace Client.UserControls
             this.btnFilterActivity.Text = "Filter";
             this.btnFilterActivity.UseVisualStyleBackColor = true;
             // 
+            // pbProject
+            // 
+            this.pbProject.ForeColor = System.Drawing.Color.Turquoise;
+            this.pbProject.Location = new System.Drawing.Point(41, 409);
+            this.pbProject.Name = "pbProject";
+            this.pbProject.Size = new System.Drawing.Size(315, 49);
+            this.pbProject.TabIndex = 74;
+            // 
             // UCProjectDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pbProject);
             this.Controls.Add(this.btnFilterActivity);
             this.Controls.Add(this.cmbFilterActivity);
             this.Controls.Add(this.btnViewAllActivities);
@@ -266,6 +276,7 @@ namespace Client.UserControls
         private Button btnViewAllActivities;
         private ComboBox cmbFilterActivity;
         private Button btnFilterActivity;
+        private ProgressBar pbProject;
 
         public TextBox TxtDescription { get => txtDescription; set => txtDescription = value; }
         public TextBox TxtName { get => txtName; set => txtName = value; }
@@ -278,5 +289,6 @@ namespace Client.UserControls
         public Button BtnViewAll { get => btnViewAllActivities; set => btnViewAllActivities = value; }
         public ComboBox CmbFilterActivity { get => cmbFilterActivity; set => cmbFilterActivity = value; }
         public Button BtnFilterActivity { get => btnFilterActivity; set => btnFilterActivity = value; }
+        public ProgressBar PbProject { get => pbProject; set => pbProject = value; }
     }
 }

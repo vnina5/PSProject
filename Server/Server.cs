@@ -27,7 +27,6 @@ namespace Server
             try
             {
                 socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                //IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9988);
                 IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ConfigurationManager.AppSettings["ip"]), int.Parse(ConfigurationManager.AppSettings["port"]));
                 socketServer.Bind(ep);
 
@@ -39,7 +38,6 @@ namespace Server
             catch (Exception ex)
             {
                 throw ex;
-                //Debug.WriteLine(ex.Message);
             }
         }
 
@@ -50,7 +48,6 @@ namespace Server
                 Socket socketClient = socketServer.Accept();
                 ClientHandler handler = new ClientHandler(socketClient);
                 Thread thread = new Thread(handler.HandleRequest);
-                //thread.IsBackground = false;
                 thread.Start();
             }
         }
